@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CarSpawner : MonoBehaviour
+public class CarSpawner : MonoBehaviour  
 {
     [SerializeField] private List<CarProduct> _carProducts;
     [SerializeField] private CarProductSaver _carProductSaver;
