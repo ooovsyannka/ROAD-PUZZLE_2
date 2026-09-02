@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44457d031e17da946a6fb2edafbb7b35, type: 3}
+  m_Name: Level 10
+  m_EditorClassIdentifier: 
+  _index: 10
+  _gridSection:
+    _maxLengthY: 5
+    _maxLengthX: 5
+  _singleRoadSections:
+  - _roadType: 1
+    _roadSectionTransforms:
+      _position: {x: 45, y: 0, z: 45}
+      _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  - _roadType: 0
+    _roadSectionTransforms:
+      _position: {x: 30, y: 0, z: 60}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  - _roadType: 0
+    _roadSectionTransforms:
+      _position: {x: 60, y: 0, z: 30}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  _multiRoadSections:
+  - _roadSectionTransforms:
+      _position: {x: 0, y: 0, z: 30}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _roadType:
+    - _roadType: 1
+      _roadSectionTransforms:
+        _position: {x: 15, y: 0, z: 0}
+        _rotation: {x: 0, y: 0, z: 0, w: 1}
+    - _roadType: 1
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 0}
+        _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _enterPointPosition: {x: -15, y: 0, z: 0}
+    _exitPointPosition: {x: 30, y: 0, z: 0}
+  - _roadSectionTransforms:
+      _position: {x: 15, y: 0, z: 15}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _roadType:
+    - _roadType: 0
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 0}
+        _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    - _roadType: 0
+      _roadSectionTransforms:
+        _position: {x: 15, y: 0, z: 0}
+        _rotation: {x: 0, y: 0, z: 0, w: 0}
+    - _roadType: 1
+      _roadSectionTransforms:
+        _position: {x: 15, y: 0, z: -15}
+        _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    _enterPointPosition: {x: 15, y: 0, z: -30}
+    _exitPointPosition: {x: 0, y: 0, z: 15}
+  - _roadSectionTransforms:
+      _position: {x: 60, y: 0, z: 45}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _roadType:
+    - _roadType: 0
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 0}
+        _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    - _roadType: 1
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 15}
+        _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    _enterPointPosition: {x: 15, y: 0, z: 0}
+    _exitPointPosition: {x: 0, y: 0, z: 30}
+  - _roadSectionTransforms:
+      _position: {x: 0, y: 0, z: 0}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _roadType:
+    - _roadType: 0
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 0}
+        _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+    - _roadType: 1
+      _roadSectionTransforms:
+        _position: {x: 15, y: 0, z: 0}
+        _rotation: {x: 0, y: 0, z: 0, w: 1}
+    _enterPointPosition: {x: 30, y: 0, z: 0}
+    _exitPointPosition: {x: 0, y: 0, z: 15}
+  _finishRoadSections:
+  - _index: 0
+    _roadSectionTransform:
+      _position: {x: 0, y: 0, z: 60}
+      _rotation: {x: 0, y: -0.70710677, z: 0, w: -0.70710677}
+  - _index: 1
+    _roadSectionTransform:
+      _position: {x: 0, y: 0, z: 45}
+      _rotation: {x: 0, y: -1, z: 0, w: -0.00000004371139}
+  _startRoadSections:
+  - _index: 0
+    _roadSectionTransform:
+      _position: {x: 60, y: 0, z: 0}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  - _index: 1
+    _roadSectionTransform:
+      _position: {x: 45, y: 0, z: 0}
+      _rotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
+  _streetGroundTransformSelections:
+  - _position: {x: 15, y: 0, z: 45}
+    _rotation: {x: 0, y: -0.38268346, z: 0, w: 0.9238795}
+  - _position: {x: 30, y: 0, z: 30}
+    _rotation: {x: 0, y: -0.9659258, z: 0, w: 0.25881907}
+  - _position: {x: 45, y: 0, z: 15}
+    _rotation: {x: 0, y: 0.9238795, z: 0, w: 0.38268343}
+  _cameraTransformSelection:
+    _position: {x: 30, y: 120, z: -35}
+    _rotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  _hint:
+    _hintImage: {fileID: 21300000, guid: 41e6fa7aa7ff9c84383e85e46a525df8, type: 3}
+    _cost: 20
+  _timeOfDay: 2
+  _timeForLevelInMinute: 2
+  _timeForLevelInSeconds: 30
+  _winCoinCount: 175
+  _isComplete: 0

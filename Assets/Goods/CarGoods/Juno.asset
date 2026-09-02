@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Name: Juno
+  m_EditorClassIdentifier: 
+  _name: Juno
+  _carPrefab: {fileID: 8508637266417031879, guid: 639f5a30f9b4314439357d17e86f4b3b,
+    type: 3}
+  _index: 19
+  _isBought: 0
+  _price: 340

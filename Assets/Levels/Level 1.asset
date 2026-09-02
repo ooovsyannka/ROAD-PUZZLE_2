@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44457d031e17da946a6fb2edafbb7b35, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  _index: 1
+  _gridSection:
+    _maxLengthY: 3
+    _maxLengthX: 5
+  _singleRoadSections:
+  - _roadType: 1
+    _roadSectionTransforms:
+      _position: {x: 15, y: 0, z: 30}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  - _roadType: 1
+    _roadSectionTransforms:
+      _position: {x: 30, y: 0, z: 30}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  - _roadType: 1
+    _roadSectionTransforms:
+      _position: {x: 0, y: 0, z: 30}
+      _rotation: {x: 0, y: 0, z: 0, w: 0}
+  _multiRoadSections: []
+  _finishRoadSections:
+  - _index: 0
+    _roadSectionTransform:
+      _position: {x: 60, y: 0, z: 15}
+      _rotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
+  _startRoadSections:
+  - _index: 0
+    _roadSectionTransform:
+      _position: {x: 0, y: 0, z: 15}
+      _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  _streetGroundTransformSelections: []
+  _cameraTransformSelection:
+    _position: {x: 30, y: 120, z: -35}
+    _rotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  _hint:
+    _hintImage: {fileID: 21300000, guid: e64995f22c86a3b43845b06baa733398, type: 3}
+    _cost: 0
+  _timeOfDay: 0
+  _timeForLevelInMinute: 1
+  _timeForLevelInSeconds: 0
+  _winCoinCount: 100
+  _isComplete: 0

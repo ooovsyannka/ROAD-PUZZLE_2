@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5254049862999482354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3034978709069351455}
+  - component: {fileID: 6274648392878078951}
+  - component: {fileID: 1454023872988791443}
+  m_Layer: 0
+  m_Name: CarSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3034978709069351455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254049862999482354}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6274648392878078951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254049862999482354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f89d182f1435b043ab37d194d3a01e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carProducts:
+  - {fileID: 11400000, guid: 22cebd028932d5449b812a6caea3414a, type: 2}
+  - {fileID: 11400000, guid: c3e01190e3737c546893235339102ab1, type: 2}
+  - {fileID: 11400000, guid: 9b3acddcee408a941972940ae3020018, type: 2}
+  - {fileID: 11400000, guid: c54b3f3952415914598107bf69a1dff1, type: 2}
+  - {fileID: 11400000, guid: ff69665d28a8c564681d035f66792440, type: 2}
+  - {fileID: 11400000, guid: b5ec1e6c0f3806040a46b51314ce4f5d, type: 2}
+  - {fileID: 11400000, guid: cdd554cddf1f24349bd951b6f2b54c4f, type: 2}
+  - {fileID: 11400000, guid: 954d9c13d28ad434d98bffb038d886f3, type: 2}
+  - {fileID: 11400000, guid: 36f8bb92e6f0a0d41a545105e3f9ae21, type: 2}
+  - {fileID: 11400000, guid: f1893861f9bce154aa0a46169c2b5c15, type: 2}
+  - {fileID: 11400000, guid: f323b6ab5bae3d34f9dc88c352d3304f, type: 2}
+  - {fileID: 11400000, guid: 42d92c6ad82521e48a3db5eec27736ac, type: 2}
+  - {fileID: 11400000, guid: 00bddd3027ac38e4d873ad10715fdae8, type: 2}
+  - {fileID: 11400000, guid: 552e13762aa0047498bda89dbd7b6249, type: 2}
+  - {fileID: 11400000, guid: c38d3c9e122329b4180ec2c1e4b1d050, type: 2}
+  - {fileID: 11400000, guid: 7c1c491a3834386429d4a2680b06585b, type: 2}
+  - {fileID: 11400000, guid: e9f8e921fada7cf43852f143b3d1f65e, type: 2}
+  - {fileID: 11400000, guid: e1edff30ec0cffe48b52478ac1150422, type: 2}
+  - {fileID: 11400000, guid: 2d5c834fdb83af94d82dffc85ebfa86f, type: 2}
+  - {fileID: 11400000, guid: cae9488b78777ee42848f2c5a6b713cf, type: 2}
+  - {fileID: 11400000, guid: 172857ce06ffc6e42b53ce690f27f99f, type: 2}
+  - {fileID: 11400000, guid: 6829bb9ee1750e24383a0d0454f44d55, type: 2}
+  - {fileID: 11400000, guid: 0ddd6a7788965eb4dbe4d6ad5c210cf4, type: 2}
+  - {fileID: 11400000, guid: 42bc6e4a6826a8c459f5e30dec30eb50, type: 2}
+  - {fileID: 11400000, guid: 8f50dcb3d30481148ae0e6546a14114c, type: 2}
+  - {fileID: 11400000, guid: 85e38bfaa3fb5314b9daca6d8dd6e75d, type: 2}
+  - {fileID: 11400000, guid: 46eb6aac68aab4d45b87ee7b117dce57, type: 2}
+  - {fileID: 11400000, guid: 1a8957023219ce149a7992138482b6b7, type: 2}
+  - {fileID: 11400000, guid: 9a6fc3db835bc6b47a7f399a59b97d52, type: 2}
+  - {fileID: 11400000, guid: 80ab6d01254e5404b99d860751c54e7a, type: 2}
+  - {fileID: 11400000, guid: 27aede6d11f9beb49abea3f7614acd13, type: 2}
+  - {fileID: 11400000, guid: af5dbb7d7897a8844bd7487a949aa453, type: 2}
+  _carProductSaver: {fileID: 1454023872988791443}
+--- !u!114 &1454023872988791443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254049862999482354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9824a3868d05b5a4b834ee78123432a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carContainers: []

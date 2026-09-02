@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bdb589a229b712448b8c4a4ac120307, type: 3}
+  m_Name: Orion
+  m_EditorClassIdentifier: 
+  _name: Orion
+  _carPrefab: {fileID: 332499056709161777, guid: b62fc929d79081c438397e22a065dd16,
+    type: 3}
+  _index: 4
+  _isBought: 0
+  _completedProcent: 0

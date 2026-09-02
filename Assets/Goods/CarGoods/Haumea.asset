@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Name: Haumea
+  m_EditorClassIdentifier: 
+  _name: Haumea
+  _carPrefab: {fileID: 1333948775655560064, guid: c8fa921601bc7424bacea20dcbcdb954,
+    type: 3}
+  _index: 16
+  _isBought: 0
+  _price: 250

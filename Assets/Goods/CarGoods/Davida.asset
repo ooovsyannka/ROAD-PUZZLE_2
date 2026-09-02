@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Name: Davida
+  m_EditorClassIdentifier: 
+  _name: Davida
+  _carPrefab: {fileID: 1120949226334211035, guid: 86af6780015815a409cf4ab2b37a23a8,
+    type: 3}
+  _index: 11
+  _isBought: 0
+  _price: 275
