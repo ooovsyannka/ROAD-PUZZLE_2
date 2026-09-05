@@ -73,7 +73,7 @@ public class Menu : MonoBehaviour
         if (_canLoadScene == false)
             return;
 
-        loadScene.Invoke();
+        loadScene?.Invoke();
         _canLoadScene = false;
     }
 }

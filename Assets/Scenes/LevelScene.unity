@@ -257,6 +257,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 39
       objectReference: {fileID: 0}
+    - target: {fileID: 728673634274928247, guid: f3956a6e8bad3d143a6addfee1547c78,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.3557129
+      objectReference: {fileID: 0}
     - target: {fileID: 820640659246257728, guid: f3956a6e8bad3d143a6addfee1547c78,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -477,6 +482,11 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 26.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4739421239164566927, guid: f3956a6e8bad3d143a6addfee1547c78,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.3048172
+      objectReference: {fileID: 0}
     - target: {fileID: 5978937858121095098, guid: f3956a6e8bad3d143a6addfee1547c78,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -642,7 +652,7 @@ GameObject:
   - component: {fileID: 149482089}
   - component: {fileID: 149482088}
   - component: {fileID: 149482087}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

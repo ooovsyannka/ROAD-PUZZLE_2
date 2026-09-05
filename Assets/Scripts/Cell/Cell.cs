@@ -1,14 +1,13 @@
-﻿using System;
+﻿ using System;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
     [SerializeField] private CellAnimation _animation;
 
-    private Road _road;
     private RoadNode _roadNode;
-
-    public bool _isFree;
+    private RoadBoundary _roadBoundary;
+    private bool _isFree;
 
     public bool IsFree => _isFree;
     public int Index;
@@ -19,11 +18,11 @@ public class Cell : MonoBehaviour
     public event Action Filled;
     public event Action BecameEmpty;
 
-    public Road Road => _road;
+    public RoadNode RoadNode => _roadNode;
 
     private void Awake()
     {
-        if (_roadNode != null)
+        if (_roadBoundary != null)
         {
             Fill();
         }
@@ -46,28 +45,7 @@ public class Cell : MonoBehaviour
             _animation.Finished -= AnimationFinish;
     }
 
-    public bool TryGetRoad(out Road road)
-    {
-        road = null;
-
-        if (_road != null)
-        {
-            road = _road;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public void CleanRoad()
-    {
-        _road.transform.SetParent(null);
-        _road = null;
-        EmptyCell();
-    }
-
-    public bool TryGetRoadNode(out RoadNode roadNode)
+    public bool TryGetRoad(out RoadNode roadNode)
     {
         roadNode = null;
 
@@ -81,18 +59,39 @@ public class Cell : MonoBehaviour
         return false;
     }
 
-    public void SetRoad(Road road)
+    public void CleanRoad()
     {
-        _road = road;
+        _roadNode.transform.SetParent(null);
+        _roadNode = null;
+        EmptyCell();
+    }
+
+    public bool TryGetRoadNode(out RoadBoundary roadBoundary)
+    {
+        roadBoundary = null;
+
+        if (_roadBoundary != null)
+        {
+            roadBoundary = _roadBoundary;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void SetRoad(RoadNode roadNode)
+    {
+        _roadNode = roadNode;
         Fill();
 
         if (_animation != null)
-           _road.transform.SetParent(_animation.transform);
+           _roadNode.transform.SetParent(_animation.transform);
     }
 
-    public void SetRoadNode(RoadNode roadNode)
+    public void SetRoadNode(RoadBoundary roadBoundary)
     {
-        _roadNode = roadNode;
+        _roadBoundary = roadBoundary;
         Fill();
     }
 
