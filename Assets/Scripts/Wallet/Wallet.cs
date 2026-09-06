@@ -20,7 +20,7 @@ public class Wallet : MonoBehaviour
     {
         LoadCoinsFromSave();
         _countCoin += count;
-        SaveCoinsInSave();
+        SaveCoinsInSaver();
         UpdateWalletInfo();
     }
 
@@ -41,7 +41,7 @@ public class Wallet : MonoBehaviour
 
         _countCoin -= minusCount;
 
-        SaveCoinsInSave();
+        SaveCoinsInSaver();
         UpdateWalletInfo();
 
         return true;
@@ -61,7 +61,7 @@ public class Wallet : MonoBehaviour
     {
         _countCoin = _walletSaver.LoadCoins();
     }
-    private void SaveCoinsInSave()
+    private void SaveCoinsInSaver()
     {
         _walletSaver.SaveCoinInWalet(_countCoin);
     }

@@ -25,8 +25,8 @@ public class RoadBuilder : MonoBehaviour
 
     public void SetStartRoads(List<StartRoad> iStartRoads)
     {
-        *//*        _startRoads = iStartRoads;
-                _roadDrager.DragOver += TestStart;*//*
+        */ /*        _startRoads = iStartRoads;
+                _roadDrager.DragOver += TestStart;*/ /*
     }
 
     public void SetFinishRoads(List<FinishRoad> finishRoads)
@@ -290,28 +290,39 @@ public class RoadBuilder : MonoBehaviour
 
     private void TryBuildRoad(RoadNode roadNode)
     {
-        if (_grid.TryGetCell(roadNode.MergePointHolder.EnterPoint.transform.position, out Cell cell)) ProcessPointCheck(cell, roadNode);
-        if (_grid.TryGetCell(roadNode.MergePointHolder.ExitPoint.transform.position, out cell)) ProcessPointCheck(cell, roadNode);
+        Vector3 enterPoint = roadNode.MergePointHolder.EnterPoint.transform.position;
+        Vector3 exitPoint = roadNode.MergePointHolder.ExitPoint.transform.position;
+        Cell cell;
+        
+        if (_grid.TryGetCell(enterPoint, out cell))
+        {
+            ProcessPointCheck(cell, roadNode);
+        }
+
+        if (_grid.TryGetCell(exitPoint, out cell))
+        {
+            ProcessPointCheck(cell, roadNode);
+        }
     }
 
     private void TryFindNearRoad(RoadNode _)
     {
         foreach (UniversalRoadBoundary universalRoadNode in _universalRoadNodes)
-            foreach (MergePoint mergePoint in universalRoadNode.MergePoints)
-            {
-                if (!_grid.TryGetCell(mergePoint.transform.position, out Cell cell)
-                    || !cell.TryGetRoad(out RoadNode road)
-                    || (road.MergePointHolder.EnterPoint.transform.position != universalRoadNode.transform.position
-                        && road.MergePointHolder.ExitPoint.transform.position != universalRoadNode.transform.position)
-                    || universalRoadNode.RoadBoundaryType != RoadBoundaryType.Start
-                    || road.IsConnect
-                    || !_chains.TryAddRoadInChain(universalRoadNode, road))
-                    continue;
+        foreach (MergePoint mergePoint in universalRoadNode.MergePoints)
+        {
+            if (!_grid.TryGetCell(mergePoint.transform.position, out Cell cell)
+                || !cell.TryGetRoad(out RoadNode road)
+                || (road.MergePointHolder.EnterPoint.transform.position != universalRoadNode.transform.position
+                    && road.MergePointHolder.ExitPoint.transform.position != universalRoadNode.transform.position)
+                || universalRoadNode.RoadBoundaryType != RoadBoundaryType.Start
+                || road.IsConnect
+                || !_chains.TryAddRoadInChain(universalRoadNode, road))
+                continue;
 
-                ConnectRoad(road, null, 0);
+            ConnectRoad(road, null, 0);
 
-                return;
-            }
+            return;
+        }
     }
 
     private void ProcessPointCheck(Cell cell, RoadNode roadNode)
@@ -368,7 +379,8 @@ public class RoadBuilder : MonoBehaviour
         }
     }
 
-    private void AttemptChainCreationOnOccupiedPosition(RoadNode roadNode, StartRoad startRoad, MergePoint startMergePoint)
+    private void AttemptChainCreationOnOccupiedPosition(RoadNode roadNode, StartRoad startRoad,
+        MergePoint startMergePoint)
     {
         if (CanConnectRoad(startMergePoint, roadNode) && _chains.TryAddRoadInChain(startRoad, roadNode))
             ConnectRoad(roadNode, null, startRoad.Index);
@@ -383,9 +395,11 @@ public class RoadBuilder : MonoBehaviour
 
     private bool CanConnectRoad(MergePoint mergePoint, RoadNode currentRoadNode)
     {
-        return _grid.TryGetCell(mergePoint.transform.position, out Cell cell)
-            && cell.TryGetRoad(out RoadNode road)
-            && road != null
-            && road == currentRoadNode;
+        Cell cell = _grid.GetCell(mergePoint.transform.position);
+
+        return cell != null 
+               && cell.TryGetRoad(out RoadNode road)
+               && road != null
+               && road == currentRoadNode;
     }
 }

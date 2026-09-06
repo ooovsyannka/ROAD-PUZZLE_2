@@ -37,7 +37,8 @@ public class Level : MonoBehaviour
         _hintButton.onClick.RemoveListener(AttemptShowHint);
     }
 
-    public void SetLevelInfo(Grid grid, List<StartRoad> startRoads, List<FinishRoad> finishRoads, List<RoadNode> roads, LevelData levelData)
+    public void SetLevelInfo(Grid grid, List<StartRoad> startRoads, List<FinishRoad> finishRoads, List<RoadNode> roads,
+        LevelData levelData)
     {
         _grid = grid;
         _roads = roads;
@@ -66,10 +67,13 @@ public class Level : MonoBehaviour
     {
         Cell cell;
         Vector3 carSpawnPosition;
+        Vector3 cellPosition;
 
         foreach (StartRoad startRoad in _startRoads)
         {
-            if (_grid.TryGetCell(startRoad.transform.position, out cell))
+            cellPosition = startRoad.transform.position;
+
+            if (_grid.TryGetCell(cellPosition, out cell))
             {
                 cell.SetRoadNode(startRoad);
                 carSpawnPosition = startRoad.transform.position;
@@ -83,7 +87,9 @@ public class Level : MonoBehaviour
 
         foreach (FinishRoad finishRoad in _finishRoads)
         {
-            if (_grid.TryGetCell(finishRoad.transform.position, out cell))
+            cellPosition = finishRoad.transform.position;
+
+            if (_grid.TryGetCell(cellPosition, out cell))
             {
                 cell.SetRoadNode(finishRoad);
             }
@@ -93,7 +99,9 @@ public class Level : MonoBehaviour
         {
             foreach (SingleRoad singleRoad in road.SingleRoadHolder.SingleRoads)
             {
-                if (_grid.TryGetCell(singleRoad.transform.position, out cell))
+                cellPosition = singleRoad.transform.position;
+                
+                if (_grid.TryGetCell(cellPosition, out cell))
                 {
                     cell.SetRoad(road);
                 }
@@ -127,7 +135,8 @@ public class Level : MonoBehaviour
                     if (startRoad is IStartRoad iStartRoad)
                     {
                         car = startRoad.Car;
-                        car.Move(_chains.CreateRoute(iStartRoad, finishRoad.SplineComputer).SplineComputer, finishRoad.SplineComputer);
+                        car.Move(_chains.CreateRoute(iStartRoad, finishRoad.SplineComputer).SplineComputer,
+                            finishRoad.SplineComputer);
                         _completeRoadCount++;
 
                         break;

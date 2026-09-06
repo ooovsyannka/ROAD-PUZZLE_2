@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour
     private Cell[,] _gridCells;
     private int _fillCellCount;
 
-    public bool HasEmptyCell => _fillCellCount != _cells.Count;
+    public bool IsFull => _fillCellCount != _cells.Count;
     public List<Cell> Cells => _cells;
 
     private void OnDisable()
@@ -52,6 +52,27 @@ public class Grid : MonoBehaviour
         InitializeGrid();
     }
 
+    public Cell GetCell(Vector3 cellPosition)
+    {
+        Vector3 index = cellPosition
+            .RoundVector3ToNearest()
+            .ConvertVectorToIndex();
+
+        return GetCellByIndex(index);
+    }
+
+    public bool HasCell(Vector3 cellPosition)
+    {
+        return GetCell(cellPosition) != null;
+    }
+
+    public bool HasEmptyCell(Vector3 cellPosition)
+    {
+        Cell cell = GetCell(cellPosition);
+
+        return cell != null && cell.IsFree == false;
+    }
+
     public bool TryGetCell(Vector3 cellPosition, out Cell cell) =>
         TryGetCellByIndex(cellPosition.RoundVector3ToNearest().ConvertVectorToIndex(), out cell);
 
@@ -59,7 +80,7 @@ public class Grid : MonoBehaviour
     {
         Cell cell = null;
 
-        if (HasEmptyCell)
+        if (IsFull)
         {
             bool _isCreateCell = false;
 
@@ -89,19 +110,29 @@ public class Grid : MonoBehaviour
 
         Cell cellInGrind;
 
-        if (positionInGrind.x < _maxLengthGridX && positionInGrind.z < _maxLengthGridY)
-        {
-            cellInGrind = _gridCells[(int)positionInGrind.z, (int)positionInGrind.x];
+        if (!(positionInGrind.x < _maxLengthGridX) || !(positionInGrind.z < _maxLengthGridY)) return false;
+        cellInGrind = _gridCells[(int)positionInGrind.z, (int)positionInGrind.x];
 
-            if (cellInGrind != null)
-            {
-                cell = cellInGrind;
+        if (cellInGrind == null) return false;
+        cell = cellInGrind;
 
-                return true;
-            }
-        }
+        return true;
+    }
 
-        return false;
+    private Cell GetCellByIndex(Vector3 positionInGrid)
+    {
+        if (!IsInsideGrid(positionInGrid))
+            return null;
+
+        return _gridCells[(int)positionInGrid.z, (int)positionInGrid.x];
+    }
+
+    private bool IsInsideGrid(Vector3 positionInGrid)
+    {
+        return positionInGrid.x >= 0 &&
+               positionInGrid.x < _maxLengthGridX &&
+               positionInGrid.z >= 0 &&
+               positionInGrid.z < _maxLengthGridY;
     }
 
     private void AddFreeCellCount()

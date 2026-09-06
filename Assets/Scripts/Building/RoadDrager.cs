@@ -8,6 +8,8 @@ public class RoadDrager : MonoBehaviour
     [SerializeField] private InputReader _reader;
     [SerializeField] private Grid _grid;
 
+    private WaitForSeconds _delay;
+    private float _time = 0.05f;
     private Cell _lastCell;
     private RoadNode _roadNode;
     private RoadPreview _preview;
@@ -17,6 +19,11 @@ public class RoadDrager : MonoBehaviour
     private bool _isDrag;
 
     public event Action<RoadNode> DragOver;
+
+    private void Awake()
+    {
+        _delay = new WaitForSeconds(_time);
+    }
 
     private void OnEnable()
     {
@@ -31,43 +38,35 @@ public class RoadDrager : MonoBehaviour
 
     private void TryGetRoad()
     {
-        if (_reader.IsCorrectPosition(out _hit))
+        if (!_reader.TryHitCellUnderPointer(out _hit)) return;
+        if (!_hit.transform.TryGetComponent(out Cell cell)) return;
+        if (!cell.TryGetRoad(out _roadNode)) return;
+        if (!_roadNode.CanDrag) return;
+        _lastCell = cell;
+        _preview = _roadNode.Preview;
+        _preview.SetParent(null);
+
+        if (_roadNode.IsConnect)
         {
-            if (_hit.transform.TryGetComponent(out Cell cell))
+            _roadNode.Disconnect(null);
+        }
+
+        if (_roadNode.SingleRoadHolder.SingleRoads.Count > 1)
+        {
+            foreach (SingleRoad singleRoad in _roadNode.SingleRoadHolder.SingleRoads)
             {
-                if (cell.TryGetRoad(out _roadNode))
-                {
-                    if (_roadNode.CanDrag)
-                    {
-                        _lastCell = cell;
-                        _preview = _roadNode.Preview;
-                        _preview.SetParent(null);
-
-                        if (_roadNode.IsConnect)
-                        {
-                            _roadNode.Disconnect(null);
-                        }
-
-                        if (_roadNode.SingleRoadHolder.SingleRoads.Count > 1)
-                        {
-                            foreach (SingleRoad singleRoad in _roadNode.SingleRoadHolder.SingleRoads)
-                            {
-                                CleanCells(singleRoad.transform.position);
-                            }
-                        }
-                        else
-                        {
-                            cell.CleanRoad();
-                        }
-
-                        if (_drag != null)
-                            StopCoroutine(_drag);
-
-                        _drag = StartCoroutine(Drag());
-                    }
-                }
+                CleanCells(singleRoad.transform.position);
             }
         }
+        else
+        {
+            cell.CleanRoad();
+        }
+
+        if (_drag != null)
+            StopCoroutine(_drag);
+
+        _drag = StartCoroutine(Drag());
     }
 
     private void TryDragOver()
@@ -77,7 +76,9 @@ public class RoadDrager : MonoBehaviour
 
     private void CleanCells(Vector3 point)
     {
-        if (_grid.TryGetCell(point, out Cell cell))
+        Cell cell = _grid.GetCell(point);
+        
+        if (cell != null)
         {
             cell.CleanRoad();
         }
@@ -89,11 +90,11 @@ public class RoadDrager : MonoBehaviour
 
         foreach (SingleRoad singleRoad in _roadNode.SingleRoadHolder.SingleRoads)
         {
-            if (_grid.TryGetCell(_preview.transform.position + singleRoad.transform.localPosition, out Cell cell))
-            {
-                canDropRoadInCell = true;
-                cell.SetRoad(_roadNode);
-            }
+            if (!_grid.TryGetCell(_preview.transform.position + singleRoad.transform.localPosition,
+                    out Cell cell)) continue;
+
+            canDropRoadInCell = true;
+            cell.SetRoad(_roadNode);
         }
 
         if (canDropRoadInCell == false)
@@ -122,12 +123,12 @@ public class RoadDrager : MonoBehaviour
         {
             Cell cell;
 
-            if (_reader.IsCorrectPosition(out _hit))
+            if (_reader.TryHitCellUnderPointer(out _hit))
             {
                 _roadNode.Move(_hit.point);
                 _roadNode.RoadRotation.SetRotation(_hit.point);
 
-                if (_grid.TryGetCell(_hit.point, out _))
+                if (_grid.HasCell(_hit.point))
                 {
                     _hitPosition = _hit.transform.position + _hit.normal;
                     canShowPreviewPosition = true;
@@ -135,38 +136,26 @@ public class RoadDrager : MonoBehaviour
 
                     foreach (SingleRoad singleRoad in roads)
                     {
-                        if (_grid.TryGetCell(previewPosition + singleRoad.transform.localPosition, out cell))
+                        if (_grid.HasEmptyCell(previewPosition + singleRoad.transform.localPosition))
                         {
-                            if (cell.IsFree == false)
-                            {
-                                if (_grid.TryGetCell(previewPosition - singleRoad.transform.localPosition, out cell))
-                                {
-                                    if (cell.IsFree)
-                                    {
-                                        previewPosition = previewPosition - singleRoad.transform.localPosition;
-                                    }
-                                }
-                            }
-                        }
-                        else if (_grid.TryGetCell(previewPosition - singleRoad.transform.localPosition, out cell))
-                        {
-                            if (cell.IsFree)
+                            if (_grid.HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
                             {
                                 previewPosition = previewPosition - singleRoad.transform.localPosition;
                             }
+                        }
+                        else if (_grid.HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
+                        {
+                            previewPosition = previewPosition - singleRoad.transform.localPosition;
                         }
                     }
 
                     foreach (SingleRoad singleRoad in roads)
                     {
-                        if (_grid.TryGetCell(previewPosition + singleRoad.transform.localPosition, out cell))
+                        if (_grid.HasEmptyCell(previewPosition + singleRoad.transform.localPosition))
                         {
-                            if (cell.IsFree == false)
-                            {
                                 canShowPreviewPosition = false;
 
                                 break;
-                            }
                         }
                         else
                         {
@@ -193,9 +182,9 @@ public class RoadDrager : MonoBehaviour
         _roadNode.RoadRotation.ResetTiltImmediately();
         DropRoad();
 
-        yield return new WaitForSeconds(0.05f);
+        yield return _delay;
 
-        DragOver.Invoke(_roadNode);
+        DragOver?.Invoke(_roadNode);
         ClearTemporaryData();
     }
 }

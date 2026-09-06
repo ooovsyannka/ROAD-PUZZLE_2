@@ -5,7 +5,6 @@ using UnityEngine;
 public class InfinityLevel : MonoBehaviour
 {
     [SerializeField] private List<UniversalRoadBoundary> _universalRoadNodes;
-    [SerializeField] private Grid _grid;
     [SerializeField] private Chains _chains;
     [SerializeField] private CarSpawner _carSpawner;
     [SerializeField] private LightCycle _lightCycle;
@@ -22,6 +21,7 @@ public class InfinityLevel : MonoBehaviour
 
     private int _startLevelTime = 3;
     private int _collectedСoins = 0;
+    private Grid _grid;
 
     private IStartRoad _currentStartRodNode;
     private UniversalRoadBoundary _currentUniversalStartRoad;
@@ -87,6 +87,11 @@ public class InfinityLevel : MonoBehaviour
         }
     }
 
+    public void SetGrid(Grid grid)
+    {
+        _grid = grid;
+    }
+
     private void NextMove()
     {
         foreach (UniversalRoadBoundary universalRoadNode in _universalRoadNodes)
@@ -145,7 +150,7 @@ public class InfinityLevel : MonoBehaviour
     {
         if (_chains.ChainCopmete == false)
         {
-            if (_grid.HasEmptyCell == false)
+            if (_grid.IsFull == false)
             {
                 FinishGame("Закончилось Место");
             }

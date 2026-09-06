@@ -15,7 +15,6 @@ namespace IJunior.TypedScenes
     
     public class MainMenu : TypedScene
     {
-        
         private const string _sceneName = "MainMenu";
         
         public static void Load( LoadSceneMode loadSceneMode = LoadSceneMode.Single)
@@ -23,9 +22,9 @@ namespace IJunior.TypedScenes
             LoadScene(_sceneName, loadSceneMode);
         }
         
-        public static UnityEngine.AsyncOperation LoadAsync(int argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static UnityEngine.AsyncOperation LoadAsync( LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            return LoadScene(_sceneName, loadSceneMode, argument);
+            return LoadScene(_sceneName, loadSceneMode);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    [SerializeField] private LayerMask _waterLayer;
+    [SerializeField] private LayerMask _cellLayer;
 
     private Camera _camera;
     private float _maxRayDistance = 1000;
@@ -42,8 +42,8 @@ public class InputReader : MonoBehaviour
     public Ray GetRayByMousePsition() =>
        _camera.ScreenPointToRay(Input.mousePosition);
 
-    public bool IsCorrectPosition(out RaycastHit hit) =>
-        Physics.Raycast(GetRayByMousePsition(), out hit, _maxRayDistance, _waterLayer);
+    public bool TryHitCellUnderPointer(out RaycastHit hit) =>
+        Physics.Raycast(GetRayByMousePsition(), out hit, _maxRayDistance, _cellLayer);
 
     public void StopReadInput()=>
         _canReadInput = false;

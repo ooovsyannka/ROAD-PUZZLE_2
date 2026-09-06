@@ -2604,7 +2604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49e039bc8364e04baca4bad006c75b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roadPrefab: {fileID: 2816119586269705960, guid: 5afb9faac20038c4f86f201f558e3925,
+  roadNodePrefab: {fileID: 2816119586269705960, guid: 5afb9faac20038c4f86f201f558e3925,
     type: 3}
   _startRoadPrefab: {fileID: 8459320213935561793, guid: ad8dc9ee23567f44f8b6c297b00ff8bd,
     type: 3}
@@ -3563,6 +3563,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 4527223760718089154, guid: b4510ab16120fc8459cb366910d81972,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4899815136257480743, guid: b4510ab16120fc8459cb366910d81972,
         type: 3}

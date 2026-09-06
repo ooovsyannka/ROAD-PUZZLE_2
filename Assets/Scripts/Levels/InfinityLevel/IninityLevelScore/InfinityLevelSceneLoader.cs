@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class InfinityLevelSceneLoader : MonoBehaviour, ISceneLoadHandler<Grid>
 {
-    public void OnSceneLoaded(Grid argument)
+    [SerializeField] private InfinityLevel _infinityLevel;
+    [SerializeField] private Grid _grid;
+    
+    public void OnSceneLoaded(Grid grid)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnSceneUnloaded(Grid argument)
-    {
-        
+        _infinityLevel.SetGrid(grid);
     }
 }
