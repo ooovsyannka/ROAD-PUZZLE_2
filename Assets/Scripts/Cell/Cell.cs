@@ -66,7 +66,7 @@ public class Cell : MonoBehaviour
         EmptyCell();
     }
 
-    public bool TryGetRoadNode(out RoadBoundary roadBoundary)
+    public bool TryGetRoadBoundary(out RoadBoundary roadBoundary)
     {
         roadBoundary = null;
 
@@ -89,7 +89,7 @@ public class Cell : MonoBehaviour
            _roadNode.transform.SetParent(_animation.transform);
     }
 
-    public void SetRoadNode(RoadBoundary roadBoundary)
+    public void SetRoadBoundary(RoadBoundary roadBoundary)
     {
         _roadBoundary = roadBoundary;
         Fill();

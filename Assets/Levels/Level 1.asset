@@ -17,15 +17,15 @@ MonoBehaviour:
     _maxLengthY: 3
     _maxLengthX: 5
   _singleRoadSections:
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 15, y: 0, z: 30}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 30, y: 0, z: 30}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 0, y: 0, z: 30}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -51,4 +51,4 @@ MonoBehaviour:
   _timeForLevelInMinute: 1
   _timeForLevelInSeconds: 0
   _winCoinCount: 100
-  _isComplete: 0
+  _isComplete: 1

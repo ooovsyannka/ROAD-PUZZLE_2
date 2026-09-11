@@ -75,7 +75,7 @@ public class Level : MonoBehaviour
 
             if (_grid.TryGetCell(cellPosition, out cell))
             {
-                cell.SetRoadNode(startRoad);
+                cell.SetRoadBoundary(startRoad);
                 carSpawnPosition = startRoad.transform.position;
                 Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up);
                 car.transform.rotation = startRoad.transform.rotation;
@@ -91,7 +91,7 @@ public class Level : MonoBehaviour
 
             if (_grid.TryGetCell(cellPosition, out cell))
             {
-                cell.SetRoadNode(finishRoad);
+                cell.SetRoadBoundary(finishRoad);
             }
         }
 
@@ -184,6 +184,7 @@ public class Level : MonoBehaviour
             if (_wallet.TryRemoveCoin(_hint.Cost))
             {
                 _hint.Open();
+                _hint.Buy();
             }
             else
             {

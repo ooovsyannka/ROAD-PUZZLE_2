@@ -12,13 +12,14 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _settingButton;
     [SerializeField] private Wallet _wallet;
     [SerializeField] private MenuRender _menuRender;
-
+    [SerializeField] private Grid _infinityLevelGrid;
+    
     private bool _canLoadScene;
     private LevelData _currentLevel;
 
     private void Start()
     {
-        //LaunchLevel();
+        LaunchLevel();
     }
 
     private void OnEnable()
@@ -29,7 +30,7 @@ public class Menu : MonoBehaviour
         _shopButton.onClick.AddListener(OpenShop);
         _wallet.UpdateWalletInfo();
 
-        if (_levelHolder.TryGetLevel(out LevelData levelData))
+        if (_levelHolder.TryGetLevelByIndex(out LevelData levelData))
         {
             _currentLevel = levelData;
             _menuRender.ShowLevelNumber(_currentLevel.Index );

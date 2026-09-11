@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Hint : Window
@@ -40,5 +40,11 @@ public class Hint : Window
     public void Buy()
     {
         _isBought = true;
+    }
+
+    public override void Open()
+    {
+        base.Open();
+        print("Open");
     }
 }

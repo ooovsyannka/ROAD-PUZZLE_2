@@ -842,13 +842,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9100133267878882082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a1135f177b71947a6f06d236e0dd4d, type: 3}
+  m_Script: {fileID: 11500000, guid: a2635b448c05e9d4ea60e4de31690d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _mover: {fileID: 3285354935908403570}
-  _roadType: 0
+  roadNodeType: 1
   _preview: {fileID: 8455110788326341025}
-  _mergePointHolder: {fileID: 0}
+  _mergePointHolder: {fileID: 6733625654008627110}
   _singleRoadHolder: {fileID: 8721793728596297646}
   _roadRotation: {fileID: 2596421344998356608}
   _isConnect: 0

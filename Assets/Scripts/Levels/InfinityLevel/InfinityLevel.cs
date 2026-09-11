@@ -18,10 +18,10 @@ public class InfinityLevel : MonoBehaviour
     [SerializeField] private WalletSaver _walletSaver;
     [SerializeField] private BonusSpawner _bonusSpawner;
     [SerializeField] private GiveUpButton _giveUpButton;
+    [SerializeField] private Grid _grid;
 
     private int _startLevelTime = 3;
     private int _collectedСoins = 0;
-    private Grid _grid;
 
     private IStartRoad _currentStartRodNode;
     private UniversalRoadBoundary _currentUniversalStartRoad;
@@ -70,7 +70,7 @@ public class InfinityLevel : MonoBehaviour
         {
             if (_grid.TryGetCell(universalRoadNode.transform.position, out Cell cell))
             {
-                cell.SetRoadNode(universalRoadNode);
+                cell.SetRoadBoundary(universalRoadNode);
                 _chains.CreateChain(universalRoadNode);
             }
         }
@@ -87,10 +87,10 @@ public class InfinityLevel : MonoBehaviour
         }
     }
 
-    public void SetGrid(Grid grid)
+    /*public void SetGrid(Grid grid)
     {
         _grid = grid;
-    }
+    }*/
 
     private void NextMove()
     {
@@ -180,8 +180,8 @@ public class InfinityLevel : MonoBehaviour
             yield return null;
         }
 
-        if(_timer)
-        FinishGame(argumet);
+        if (_timer)
+            FinishGame(argumet);
     }
 
     private void TryBrokeUniversalFinishRoad()
@@ -195,7 +195,8 @@ public class InfinityLevel : MonoBehaviour
 
         if (Random.Range(0, 1f) > i)
         {
-            UniversalRoadBoundary randomUniversalRoadBoundary = _universalRoadNodes[Random.Range(0, _universalRoadNodes.Count)];
+            UniversalRoadBoundary randomUniversalRoadBoundary =
+                _universalRoadNodes[Random.Range(0, _universalRoadNodes.Count)];
 
             if (randomUniversalRoadBoundary.RoadBoundaryType == RoadBoundaryType.Finish)
             {

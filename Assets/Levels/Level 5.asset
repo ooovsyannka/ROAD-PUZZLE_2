@@ -17,15 +17,15 @@ MonoBehaviour:
     _maxLengthY: 4
     _maxLengthX: 4
   _singleRoadSections:
-  - _roadType: 0
+  - roadNodeType: 0
     _roadSectionTransforms:
       _position: {x: 45, y: 0, z: 0}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 15, y: 0, z: 15}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 45, y: 0, z: 45}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -34,11 +34,11 @@ MonoBehaviour:
       _position: {x: 0, y: 0, z: 30}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
     _roadType:
-    - _roadType: 0
+    - roadNodeType: 0
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: 0}
         _rotation: {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
-    - _roadType: 0
+    - roadNodeType: 0
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: -15}
         _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
@@ -73,4 +73,4 @@ MonoBehaviour:
   _timeForLevelInMinute: 2
   _timeForLevelInSeconds: 0
   _winCoinCount: 150
-  _isComplete: 0
+  _isComplete: 1

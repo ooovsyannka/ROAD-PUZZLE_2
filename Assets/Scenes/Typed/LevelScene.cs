@@ -15,6 +15,7 @@ namespace IJunior.TypedScenes
     
     public class LevelScene : TypedScene
     {
+        
         private const string _sceneName = "LevelScene";
         
         public static void Load(LevelData argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)

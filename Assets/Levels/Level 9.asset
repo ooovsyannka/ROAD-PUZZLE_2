@@ -17,56 +17,56 @@ MonoBehaviour:
     _maxLengthY: 5
     _maxLengthX: 5
   _singleRoadSections:
-  - _roadType: 1
+  - roadNodeType: 1
     _roadSectionTransforms:
       _position: {x: 15, y: 0, z: 0}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
   _multiRoadSections:
   - _roadSectionTransforms:
-      _position: {x: 45, y: 0, z: 60}
+      _position: {x: 45, y: 0, z: 45}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
     _roadType:
-    - _roadType: 0
+    - roadNodeType: 0
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 15}
+        _rotation: {x: 0, y: 0, z: 0, w: 0}
+    - roadNodeType: 0
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: 0}
-        _rotation: {x: 0, y: 0, z: 0, w: 0}
-    - _roadType: 0
-      _roadSectionTransforms:
-        _position: {x: 0, y: 0, z: -15}
         _rotation: {x: 0, y: -1, z: 0, w: -0.00000004371139}
-    - _roadType: 1
+    - roadNodeType: 1
       _roadSectionTransforms:
-        _position: {x: 15, y: 0, z: -15}
+        _position: {x: 15, y: 0, z: 0}
         _rotation: {x: 0, y: 0, z: 0, w: 1}
-    _enterPointPosition: {x: 30, y: 0, z: -15}
-    _exitPointPosition: {x: -15, y: 0, z: 0}
+    _enterPointPosition: {x: 30, y: 0, z: 0}
+    _exitPointPosition: {x: -15, y: 0, z: 15}
   - _roadSectionTransforms:
-      _position: {x: 30, y: 0, z: 45}
+      _position: {x: 30, y: 0, z: 30}
       _rotation: {x: 0, y: 0, z: 0, w: 0}
     _roadType:
-    - _roadType: 0
+    - roadNodeType: 0
+      _roadSectionTransforms:
+        _position: {x: 0, y: 0, z: 15}
+        _rotation: {x: 0, y: 0, z: 0, w: 0}
+    - roadNodeType: 1
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: 0}
-        _rotation: {x: 0, y: 0, z: 0, w: 0}
-    - _roadType: 0
-      _roadSectionTransforms:
-        _position: {x: 0, y: 0, z: -30}
         _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-    - _roadType: 1
+    - roadNodeType: 0
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: -15}
         _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-    _enterPointPosition: {x: -15, y: 0, z: 0}
-    _exitPointPosition: {x: -15, y: 0, z: -30}
+    _enterPointPosition: {x: -15, y: 0, z: -15}
+    _exitPointPosition: {x: -15, y: 0, z: 15}
   - _roadSectionTransforms:
       _position: {x: 60, y: 0, z: 0}
       _rotation: {x: 0, y: 0, z: 0, w: 1}
     _roadType:
-    - _roadType: 0
+    - roadNodeType: 0
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: 0}
         _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-    - _roadType: 1
+    - roadNodeType: 1
       _roadSectionTransforms:
         _position: {x: 0, y: 0, z: 15}
         _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
@@ -93,4 +93,4 @@ MonoBehaviour:
   _timeForLevelInMinute: 2
   _timeForLevelInSeconds: 30
   _winCoinCount: 175
-  _isComplete: 0
+  _isComplete: 1

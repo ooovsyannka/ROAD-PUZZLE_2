@@ -3333,6 +3333,7 @@ MonoBehaviour:
   _walletSaver: {fileID: 2045061259}
   _bonusSpawner: {fileID: 1386899304}
   _giveUpButton: {fileID: 1152240260}
+  _grid: {fileID: 7839227580207206306}
 --- !u!4 &2035432824
 Transform:
   m_ObjectHideFlags: 0
@@ -3681,6 +3682,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gird
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985207174080794896, guid: 8ea422c9c8e5018418f0446408d3c5d5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

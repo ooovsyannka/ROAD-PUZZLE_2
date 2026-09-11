@@ -70,7 +70,34 @@ public class Grid : MonoBehaviour
     {
         Cell cell = GetCell(cellPosition);
 
-        return cell != null && cell.IsFree == false;
+        return cell != null && cell.IsFree;
+    }
+
+    public void FindValidPreviewPosition(List<SingleRoad> roads, ref Vector3 previewPosition)
+    {
+        foreach (SingleRoad singleRoad in roads)
+        {
+            if (HasEmptyCell(previewPosition + singleRoad.transform.localPosition) == false)
+            {
+                if (HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
+                {
+                    previewPosition -= singleRoad.transform.localPosition;
+                }
+            }
+        }
+    }
+
+    public bool IsValidPreviewPosition(List<SingleRoad> roads, Vector3 previewPosition)
+    {
+        foreach (SingleRoad singleRoad in roads)
+        {
+            if (HasEmptyCell(previewPosition + singleRoad.transform.localPosition) == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool TryGetCell(Vector3 cellPosition, out Cell cell) =>

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Script: {fileID: 11500000, guid: d7471fe45463f4b48abc9879ae228bc6, type: 3}
   m_Name: Iapetus
   m_EditorClassIdentifier: 
-  _name: Iapetus
+  _name: Lapetus
   _carPrefab: {fileID: 7420282231887808690, guid: 093f5a4640c70c64f92374b780f19339,
     type: 3}
   _index: 18
   _isBought: 0
-  _price: 300
+  _price: 0

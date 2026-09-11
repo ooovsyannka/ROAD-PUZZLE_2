@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Script: {fileID: 11500000, guid: d7471fe45463f4b48abc9879ae228bc6, type: 3}
   m_Name: Aurora-94
   m_EditorClassIdentifier: 
-  _name: Aurora-94
+  _name: Aurora
   _carPrefab: {fileID: 3315951314765794542, guid: b1d9350e41d0aa444a488d8c4d31d737,
     type: 3}
   _index: 7

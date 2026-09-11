@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea76c496e9214b409c422963f0396e2, type: 3}
+  m_Script: {fileID: 11500000, guid: d7471fe45463f4b48abc9879ae228bc6, type: 3}
   m_Name: Sirius
   m_EditorClassIdentifier: 
-  _name: Sirius
-  _carPrefab: {fileID: 5163996397649039752, guid: 1d2acfeef558a2646be0988f8ea4435c,
-    type: 3}
+  _name: 
+  _carPrefab: {fileID: 0}
   _index: 29
   _isBought: 0
-  _price: 375
+  _price: 0
