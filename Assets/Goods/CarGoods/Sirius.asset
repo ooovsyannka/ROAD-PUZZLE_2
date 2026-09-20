@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7471fe45463f4b48abc9879ae228bc6, type: 3}
   m_Name: Sirius
   m_EditorClassIdentifier: 
-  _name: 
-  _carPrefab: {fileID: 0}
+  _name: Sirius
+  _carPrefab: {fileID: 5163996397649039752, guid: 1d2acfeef558a2646be0988f8ea4435c,
+    type: 3}
   _index: 29
   _isBought: 0
   _price: 0

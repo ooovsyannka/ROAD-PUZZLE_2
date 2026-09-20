@@ -804,50 +804,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1153877081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1153877083}
-  - component: {fileID: 1153877082}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1153877082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153877081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b443cf6e0ea76a647bfbb2a39bb1864e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1153877083
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153877081}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.168198, y: -22.325083, z: 167.27858}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158471815
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +934,8 @@ GameObject:
   - component: {fileID: 1248233339}
   - component: {fileID: 1248233338}
   - component: {fileID: 1248233337}
+  - component: {fileID: 1248233341}
+  - component: {fileID: 1248233340}
   m_Layer: 5
   m_Name: WalletCanvas
   m_TagString: Untagged
@@ -1068,6 +1026,32 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1248233340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248233335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5cc2b3fa102bf4c8f1f32d25af463c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walletRender: {fileID: 2047515729}
+  _walletSaver: {fileID: 1248233341}
+--- !u!114 &1248233341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248233335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb6f174cbbdab047aed035cba5602ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1297284263
 GameObject:
   m_ObjectHideFlags: 0
@@ -67932,6 +67916,7 @@ MonoBehaviour:
   _contentRectTransform: {fileID: 3853382285170777285}
   _insufficientFundsDisplay: {fileID: 367010331}
   _carProductSaver: {fileID: 7849462527956579938}
+  _wallet: {fileID: 1248233340}
 --- !u!114 &7849462527956579938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79482,6 +79467,5 @@ SceneRoots:
   - {fileID: 1298068243}
   - {fileID: 1248233336}
   - {fileID: 1017475709}
-  - {fileID: 1153877083}
   - {fileID: 5527296224220020633}
   - {fileID: 1027799977}

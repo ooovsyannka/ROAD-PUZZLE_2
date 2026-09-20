@@ -22,43 +22,41 @@ public class BonusSpawner : MonoBehaviour
     {
         coin = null;
 
-        if (GetRandomProcentage() > _procentSpawnCoin)
-        {
-            coin = _coinSpawner.Spawn(positionOnGird, null);
-            coin.Died += ReturnCoinInPool;
+        if (GetRandomProcentage() > _procentSpawnCoin == false)
+            return false;
 
-            return true;
-        }
+        coin = _coinSpawner.Spawn(positionOnGird, null);
+        coin.Died += ReturnCoinInPool;
 
-        return false;
+        return true;
     }
 
     public bool TrySpawnClock(Vector3 positionOnGird, out Clock clock)
     {
         clock = null;
 
-        if (GetRandomProcentage() > _procentSpawnClock)
-        {
-            clock = _clockSpawner.Spawn(positionOnGird, null);
-            clock.Died += ReturnCoinInPool;
+        if ((GetRandomProcentage() > _procentSpawnClock) == false)
+            return false;
 
-            return true;
-        }
+        clock = _clockSpawner.Spawn(positionOnGird, null);
+        clock.Died += ReturnCoinInPool;
 
-        return false;
+        return true;
     }
 
     private void ReturnCoinInPool(Bonus bonus)
     {
-        if (bonus is Coin coin)
+        switch (bonus)
         {
-            _coinSpawner.ReturnObjectInPool(coin);
-            coin.Died -= ReturnCoinInPool;
-        }
-        else if (bonus is Clock clock)
-        {
-            _clockSpawner.ReturnObjectInPool(clock);
-            clock.Died -= ReturnCoinInPool;
+            case Coin coin:
+                _coinSpawner.ReturnObjectInPool(coin);
+                coin.Died -= ReturnCoinInPool;
+                break;
+
+            case Clock clock:
+                _clockSpawner.ReturnObjectInPool(clock);
+                clock.Died -= ReturnCoinInPool;
+                break;
         }
     }
 

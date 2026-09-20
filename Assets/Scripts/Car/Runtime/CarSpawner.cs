@@ -19,13 +19,12 @@ public class CarSpawner : MonoBehaviour
             }
         }
 
-        if (_spawner == null)
-            _spawner = new Spawner<Car>(_carPrefabs);
+        _spawner ??= new Spawner<Car>(_carPrefabs);
     }
 
     public Car GetRandomCar(Vector3 carPosition)
     {
-        foreach (CarProduct carProduct in _carProducts)
+        /*foreach (CarProduct carProduct in _carProducts)
         {
             if (_carProductSaver.IsCarBought(carProduct))
             {
@@ -33,10 +32,7 @@ public class CarSpawner : MonoBehaviour
             }
         }
 
-        if (_spawner == null)
-        {
-            _spawner = new Spawner<Car>(_carPrefabs);
-        }
+        _spawner ??= new Spawner<Car>(_carPrefabs);*/
 
         Car car = _spawner.SpawnObjectFromList(carPosition);
         car.Died += ReturnCarInPool;

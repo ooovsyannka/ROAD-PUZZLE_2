@@ -17,13 +17,14 @@ public class RestartButton : ActionButton
 
     protected override void OnButtonAction()
     {
-        if (_levelMode == LevelMode.Infinity)
+        switch (_levelMode)
         {
-            Infinity.Load();
-        }
-        else if (_levelMode == LevelMode.Classic)
-        {
-            LevelScene.Load(_levelData);
+            case LevelMode.Infinity:
+                Infinity.Load();
+                break;
+            case LevelMode.Classic:
+                LevelScene.Load(_levelData);
+                break;
         }
     }
 }

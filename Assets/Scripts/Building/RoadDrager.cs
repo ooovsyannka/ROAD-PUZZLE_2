@@ -12,8 +12,10 @@ public class RoadDrager : MonoBehaviour
     private float _time = 0.05f;
     private Cell _lastCell;
     private RoadNode _roadNode;
+
     private RoadPreview _preview;
-    private Vector3 _hitPosition;
+
+    private Vector3 _beginDragRoadPosition;
     private Coroutine _drag;
     private RaycastHit _hit;
     private bool _isDrag;
@@ -38,10 +40,13 @@ public class RoadDrager : MonoBehaviour
 
     private void TryGetRoad()
     {
-        if (!_reader.TryHitCellUnderPointer(out _hit)) return;
-        if (!_hit.transform.TryGetComponent(out Cell cell)) return;
-        if (!cell.TryGetRoad(out _roadNode)) return;
-        if (!_roadNode.CanDrag) return;
+        if (_reader.TryHitCellUnderPointer(out _hit) == false ||
+            _hit.transform.TryGetComponent(out Cell cell) == false ||
+            cell.TryGetRoad(out _roadNode) == false ||
+            _roadNode.CanDrag == false)
+            return;
+
+        _beginDragRoadPosition = _roadNode.transform.position;
         _lastCell = cell;
         _preview = _roadNode.Preview;
         _preview.SetParent(null);
@@ -77,7 +82,7 @@ public class RoadDrager : MonoBehaviour
     private void CleanCells(Vector3 point)
     {
         Cell cell = _grid.GetCell(point);
-        
+
         if (cell != null)
         {
             cell.CleanRoad();
@@ -90,8 +95,9 @@ public class RoadDrager : MonoBehaviour
 
         foreach (SingleRoad singleRoad in _roadNode.SingleRoadHolder.SingleRoads)
         {
-            if (!_grid.TryGetCell(_preview.transform.position + singleRoad.transform.localPosition,
-                    out Cell cell)) continue;
+            if (_grid.TryGetCell(_preview.transform.position + singleRoad.transform.localPosition,
+                    out Cell cell) == false)
+                continue;
 
             canDropRoadInCell = true;
             cell.SetRoad(_roadNode);
@@ -115,65 +121,32 @@ public class RoadDrager : MonoBehaviour
     private IEnumerator Drag()
     {
         _isDrag = true;
-        bool canShowPreviewPosition;
         Vector3 previewPosition;
         List<SingleRoad> roads = _roadNode.SingleRoadHolder.SingleRoads;
 
         while (_isDrag)
         {
-            Cell cell;
-
             if (_reader.TryHitCellUnderPointer(out _hit))
             {
                 _roadNode.Move(_hit.point);
                 _roadNode.RoadRotation.SetRotation(_hit.point);
 
-                if (_grid.HasCell(_hit.point))
+                if (_grid.HasEmptyCell(_hit.point))
                 {
-                    _hitPosition = _hit.transform.position + _hit.normal;
-                    canShowPreviewPosition = true;
-                    previewPosition = _hitPosition;
+                    previewPosition = _hit.transform.position + _hit.normal;
 
-                    foreach (SingleRoad singleRoad in roads)
-                    {
-                        if (_grid.HasEmptyCell(previewPosition + singleRoad.transform.localPosition))
-                        {
-                            if (_grid.HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
-                            {
-                                previewPosition = previewPosition - singleRoad.transform.localPosition;
-                            }
-                        }
-                        else if (_grid.HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
-                        {
-                            previewPosition = previewPosition - singleRoad.transform.localPosition;
-                        }
-                    }
+                    _grid.FindValidPreviewPosition(roads, ref previewPosition);
 
-                    foreach (SingleRoad singleRoad in roads)
-                    {
-                        if (_grid.HasEmptyCell(previewPosition + singleRoad.transform.localPosition))
-                        {
-                                canShowPreviewPosition = false;
-
-                                break;
-                        }
-                        else
-                        {
-                            canShowPreviewPosition = false;
-
-                            break;
-                        }
-                    }
-
-                    if (canShowPreviewPosition)
+                    if (_grid.IsValidPreviewPosition(roads, previewPosition))
                     {
                         _preview.ShowPreviwPosition(previewPosition);
                     }
                 }
-                else
-                {
-                    _preview.ShowPreviwPosition(_lastCell.transform.position);
-                }
+
+            }
+            else
+            {
+                _preview.ShowPreviwPosition(_beginDragRoadPosition);
             }
 
             yield return null;

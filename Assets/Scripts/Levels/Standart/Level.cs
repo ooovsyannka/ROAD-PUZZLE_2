@@ -16,6 +16,7 @@ public class Level : MonoBehaviour
     [SerializeField] private Button _hintButton;
     [SerializeField] private Hint _hint;
     [SerializeField] private LevelSaver _levelSaver;
+    [SerializeField] private LevelInfoBar _levelInfoBar;
     [SerializeField] private float _carPositionY = 5;
 
     private List<StartRoad> _startRoads;
@@ -53,6 +54,7 @@ public class Level : MonoBehaviour
             }
         }
 
+        _levelInfoBar.UpdateLevelNumber(levelData.Index);
         _endGameScreen.SetLevelMode(LevelMode.Classic, levelData);
         _timer.SetMaxMinute(levelData.TimeForLevelInMinute);
         _timer.SetMaxSecond(levelData.TimeForLevelInSeconds);
@@ -73,16 +75,16 @@ public class Level : MonoBehaviour
         {
             cellPosition = startRoad.transform.position;
 
-            if (_grid.TryGetCell(cellPosition, out cell))
-            {
-                cell.SetRoadBoundary(startRoad);
-                carSpawnPosition = startRoad.transform.position;
-                Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up);
-                car.transform.rotation = startRoad.transform.rotation;
-                car.UpdateHeadlightsBasedOnTime(_currentLevelData.TimeOfDay);
-                _chains.CreateChain(startRoad);
-                startRoad.SetCar(car);
-            }
+            if (!_grid.TryGetCell(cellPosition, out cell))
+                continue;
+
+            cell.SetRoadBoundary(startRoad);
+            carSpawnPosition = startRoad.transform.position;
+            Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up);
+            car.transform.rotation = startRoad.transform.rotation;
+            car.UpdateHeadlightsBasedOnTime(_currentLevelData.TimeOfDay);
+            _chains.CreateChain(startRoad);
+            startRoad.SetCar(car);
         }
 
         foreach (FinishRoad finishRoad in _finishRoads)
@@ -100,7 +102,7 @@ public class Level : MonoBehaviour
             foreach (SingleRoad singleRoad in road.SingleRoadHolder.SingleRoads)
             {
                 cellPosition = singleRoad.transform.position;
-                
+
                 if (_grid.TryGetCell(cellPosition, out cell))
                 {
                     cell.SetRoad(road);
@@ -120,12 +122,12 @@ public class Level : MonoBehaviour
         {
             foreach (RoadNode road in _roads)
             {
-                if (road.IsConnect == false)
-                {
-                    allRoadIsConnet = false;
+                if (road.IsConnect)
+                    continue;
 
-                    break;
-                }
+                allRoadIsConnet = false;
+
+                break;
             }
 
             foreach (StartRoad startRoad in _startRoads)

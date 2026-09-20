@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        LaunchLevel();
+        //LaunchLevel();
     }
 
     private void OnEnable()
@@ -28,9 +28,8 @@ public class Menu : MonoBehaviour
         _levelButton.onClick.AddListener(LaunchLevel);
         _infinityButton.onClick.AddListener(LaunchInfinityLevel);
         _shopButton.onClick.AddListener(OpenShop);
-        _wallet.UpdateWalletInfo();
 
-        if (_levelHolder.TryGetLevelByIndex(out LevelData levelData))
+        if (_levelHolder.TryGetLevelBySaver(out LevelData levelData))
         {
             _currentLevel = levelData;
             _menuRender.ShowLevelNumber(_currentLevel.Index );

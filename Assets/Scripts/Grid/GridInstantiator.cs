@@ -20,7 +20,6 @@ public class GridInstantiator : MonoBehaviour
                 index++;
                 cellPosition = new Vector3(x * 15, cellPosition.y, y * 15);
                 Cell cell = Instantiate(_cellPrefab, cellPosition, Quaternion.identity, grid.transform);
-                cell.Index = index; 
                 cells.Add(cell);
             }
         }

@@ -7,7 +7,7 @@ public class Car : MonoBehaviour
     [SerializeField] private CarMover _carMover;
     [SerializeField] private Headlights _headlights;
 
-    public  int Speed => _carMover.Speed;
+    public int Speed => _carMover.Speed;
     public event Action<Car> MoveFinished;
     public event Action<Car> Died;
 
@@ -16,7 +16,6 @@ public class Car : MonoBehaviour
         if (_carMover != null)
             _carMover.MoveFinished += MoveFinish;
     }
-
 
     private void OnDisable()
     {
@@ -33,16 +32,19 @@ public class Car : MonoBehaviour
     {
         MoveFinished?.Invoke(this);
     }
-    
+
     public void UpdateHeadlightsBasedOnTime(TimeOfDay timeOfDay)
     {
         switch (timeOfDay)
         {
-            case TimeOfDay.Morning: _headlights.TurnOff();
+            case TimeOfDay.Morning:
+                _headlights.TurnOff();
                 break;
-            case TimeOfDay.Evening: _headlights.TurnOn();
+            case TimeOfDay.Evening:
+                _headlights.TurnOn();
                 break;
-            case TimeOfDay.Night: _headlights.TurnOn();
+            case TimeOfDay.Night:
+                _headlights.TurnOn();
                 break;
         }
     }

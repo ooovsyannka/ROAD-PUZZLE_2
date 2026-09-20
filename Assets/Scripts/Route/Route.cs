@@ -28,41 +28,41 @@ public class Route : MonoBehaviour
         List<SingleRoad> singleRoads;
         Vector3 lastPosition;
 
-        if (iStartRoad is RoadBoundary startRoadNode)
+        if (iStartRoad is not RoadBoundary startRoadNode) 
+            return;
+        
+        lastPosition = startRoadNode.transform.position;
+
+        AddSpline(startRoadNode.SplineComputer);
+
+        foreach (RoadNode road in roads)
         {
-            lastPosition = startRoadNode.transform.position;
+            singleRoads = road.SingleRoadHolder.SingleRoads;
+            road.StopDrag();
 
-            AddSpline(startRoadNode.SplineComputer);
-
-            foreach (RoadNode road in roads)
+            if (singleRoads.Count > 1)
             {
-                singleRoads = road.SingleRoadHolder.SingleRoads;
-                road.StopDrag();
+                singleRoads = singleRoads.OrderBy(singleRoad =>
+                    Vector3.Distance(lastPosition,
+                        singleRoad.transform.position)).ToList();
 
-                if (singleRoads.Count > 1)
+                foreach (SingleRoad singleRoad in singleRoads)
                 {
-                    singleRoads = singleRoads.OrderBy(singleRoad =>
-                                              Vector3.Distance(lastPosition,
-                                              singleRoad.transform.position)).ToList();
-
-                    foreach (SingleRoad singleRoad in singleRoads)
-                    {
-                        AddSpline(singleRoad.SplineComputer);
-                    }
-
-                    lastPosition = singleRoads[singleRoads.Count - 1].transform.position;
+                    AddSpline(singleRoad.SplineComputer);
                 }
-                else
-                {
-                    AddSpline(road.SingleRoadHolder.SingleRoads[0].SplineComputer);
-                    lastPosition = road.SingleRoadHolder.SingleRoads[0].transform.position;
-                }
+
+                lastPosition = singleRoads[singleRoads.Count - 1].transform.position;
             }
-
-            AddSpline(finishRoadSpline);
-
-            _splineComputer.Rebuild();
+            else
+            {
+                AddSpline(road.SingleRoadHolder.SingleRoads[0].SplineComputer);
+                lastPosition = road.SingleRoadHolder.SingleRoads[0].transform.position;
+            }
         }
+
+        AddSpline(finishRoadSpline);
+
+        _splineComputer.Rebuild();
     }
 
     private void AddSpline(SplineComputer splineComputer)

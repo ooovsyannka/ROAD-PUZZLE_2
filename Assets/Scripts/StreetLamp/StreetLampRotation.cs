@@ -11,12 +11,12 @@ public class StreetLampRotation : MonoBehaviour
 
         Vector3 horizontalDirection = new Vector3(directionToTarget.x, 0f, directionToTarget.z);
 
-        if (horizontalDirection.sqrMagnitude > 0.0001f)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(horizontalDirection, Vector3.up);
+        if (!(horizontalDirection.sqrMagnitude > 0.0001f)) 
+            return;
+        
+        Quaternion lookRotation = Quaternion.LookRotation(horizontalDirection, Vector3.up);
 
-            transform.rotation = lookRotation;
-        }
+        transform.rotation = lookRotation;
     }
 
     public void SetRotation(Quaternion quaternion)

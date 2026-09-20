@@ -11,20 +11,20 @@ public class StreetGroundInstantiator : MonoBehaviour
 
     public void TryInstantiateStreetGround(List<TransformSection> transformSections, Grid grid)
     {
-        if (transformSections != null)
+        if (transformSections == null) 
+            return;
+        
+        foreach (TransformSection transformSection in transformSections)
         {
-            foreach (TransformSection transformSection in transformSections)
+            StreetGround streetGround = Instantiate(_streetGroundPrefab, transformSection.Position, Quaternion.identity);
+            streetGround.SetRotationStreetLamp(transformSection.Rotation);
+
+            if (grid.TryGetCell(streetGround.transform.position, out Cell cell))
             {
-                StreetGround streetGround = Instantiate(_streetGroundPrefab, transformSection.Position, Quaternion.identity);
-                streetGround.SetRotationStreetLamp(transformSection.Rotation);
-
-                if (grid.TryGetCell(streetGround.transform.position, out Cell cell))
-                {
-                    cell.Fill();
-                }
-
-                _streetGrounds.Add(streetGround);
+                cell.Fill();
             }
+
+            _streetGrounds.Add(streetGround);
         }
     }
 }

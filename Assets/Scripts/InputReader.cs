@@ -25,26 +25,26 @@ public class InputReader : MonoBehaviour
 
     private void Update()
     {
-        if (_canReadInput)
+        if (!_canReadInput) 
+            return;
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                RoadPickupAttempt?.Invoke();
-            }
+            RoadPickupAttempt?.Invoke();
+        }
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                RoadDropAttempt?.Invoke();
-            }
+        if (Input.GetMouseButtonUp(0))
+        {
+            RoadDropAttempt?.Invoke();
         }
     }
-
-    public Ray GetRayByMousePsition() =>
-       _camera.ScreenPointToRay(Input.mousePosition);
 
     public bool TryHitCellUnderPointer(out RaycastHit hit) =>
         Physics.Raycast(GetRayByMousePsition(), out hit, _maxRayDistance, _cellLayer);
 
     public void StopReadInput()=>
         _canReadInput = false;
+    
+    private Ray GetRayByMousePsition() =>
+                                     _camera.ScreenPointToRay(Input.mousePosition);
 }

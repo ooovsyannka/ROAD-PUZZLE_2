@@ -25,28 +25,27 @@ public class LightCycle : MonoBehaviour
     {
         _currentCount++;
 
-        if (_currentCount == CountToMorning)
+        switch (_currentCount)
         {
-            LaunchSmothlyChangeLightIntensity(_morningIntensity);
-            _timeOfDay = TimeOfDay.Morning;
-        }
-        else if (_currentCount == CountToEvening)
-        {
-            LaunchSmothlyChangeLightIntensity(_eveningLightIntensity);
-            _timeOfDay = TimeOfDay.Evening;
-        }
-        else if (_currentCount == CountToNight)
-        {
-            LaunchSmothlyChangeLightIntensity(_nightIntensity);
-            _streetGroundSpawner.SpawnStreetGround();
-            _timeOfDay = TimeOfDay.Night;
-        }
-        else if (_currentCount == CountToUpdate)
-        {
-            _currentCount = 0;
-            _timeOfDay = TimeOfDay.Morning;
-            LaunchSmothlyChangeLightIntensity(_morningIntensity);
-            _streetGroundSpawner.DespawnStreetGround();
+            case CountToMorning:
+                LaunchSmothlyChangeLightIntensity(_morningIntensity);
+                _timeOfDay = TimeOfDay.Morning;
+                break;
+            case CountToEvening:
+                LaunchSmothlyChangeLightIntensity(_eveningLightIntensity);
+                _timeOfDay = TimeOfDay.Evening;
+                break;
+            case CountToNight:
+                LaunchSmothlyChangeLightIntensity(_nightIntensity);
+                _streetGroundSpawner.SpawnStreetGround();
+                _timeOfDay = TimeOfDay.Night;
+                break;
+            case CountToUpdate:
+                _currentCount = 0;
+                _timeOfDay = TimeOfDay.Morning;
+                LaunchSmothlyChangeLightIntensity(_morningIntensity);
+                _streetGroundSpawner.DespawnStreetGround();
+                break;
         }
     }
 

@@ -42,16 +42,14 @@ public class Chains : MonoBehaviour
 
     public bool TryAddRoadInChain(IStartRoad startRoad, RoadNode attachedRoadNode)
     {
-        if (_chains[startRoad].Count == 0)
-        {
-            _chains[startRoad].Add(attachedRoadNode);
-            attachedRoadNode.RoadJoined += AddRoad;
-            attachedRoadNode.Disconected += RemoveRoad;
+        if (_chains[startRoad].Count != 0)
+            return false;
 
-            return true;
-        }
+        _chains[startRoad].Add(attachedRoadNode);
+        attachedRoadNode.RoadJoined += AddRoad;
+        attachedRoadNode.Disconected += RemoveRoad;
 
-        return false;
+        return true;
     }
 
     public Route CreateRoute(IStartRoad iStartRoad, SplineComputer finishRoadSpline)
@@ -62,12 +60,12 @@ public class Chains : MonoBehaviour
 
         ChainCompleted?.Invoke(roads);
 
-        if (_routes.Count > 0)
-        {
-            route = _routes.Dequeue();
-            route.JoinSpline(iStartRoad, finishRoadSpline, roads);
-            route.Cleaned += AddCleanRoute;
-        }
+        if (_routes.Count <= 0)
+            return route;
+
+        route = _routes.Dequeue();
+        route.JoinSpline(iStartRoad, finishRoadSpline, roads);
+        route.Cleaned += AddCleanRoute;
 
         return route;
     }
@@ -101,12 +99,12 @@ public class Chains : MonoBehaviour
 
         foreach (var chain in _chains.Values)
         {
-            if (chain.Contains(roadNodeInChain))
-            {
-                targetLists = chain;
+            if (chain.Contains(roadNodeInChain) == false)
+                continue;
 
-                break;
-            }
+            targetLists = chain;
+
+            break;
         }
 
         targetLists.Add(roadNode);
@@ -123,44 +121,44 @@ public class Chains : MonoBehaviour
 
         foreach (var chain in _chains)
         {
-            if (chain.Value.Contains(roadNode))
-            {
-                findSingleRoadNode = roadNode;
-                foundKey = chain.Key;
-                targetList = chain.Value;
+            if (!chain.Value.Contains(roadNode))
+                continue;
 
-                break;
-            }
+            findSingleRoadNode = roadNode;
+            foundKey = chain.Key;
+            targetList = chain.Value;
+
+            break;
         }
 
-        if (foundKey != null)
-        {
-            if (_chains[foundKey].First() == findSingleRoadNode)
-            {
-                _chains[foundKey].Clear();
+        if (foundKey == null)
+            return;
 
-                RoadsOver?.Invoke(foundKey);
-            }
-            else
-            {
-                targetList.Remove(roadNode);
-            }
+        if (_chains[foundKey].First() == findSingleRoadNode)
+        {
+            _chains[foundKey].Clear();
+
+            RoadsOver?.Invoke(foundKey);
+        }
+        else
+        {
+            targetList.Remove(roadNode);
         }
     }
 
     private IEnumerator RemoveChain(IStartRoad roadNode, Grid grid)
     {
-      //  ChainCompleted?.Invoke(_chains[roadNode]);
+        //  ChainCompleted?.Invoke(_chains[roadNode]);
 
         foreach (RoadNode road in _chains[roadNode])
         {
             foreach (SingleRoad singleRoad in road.SingleRoadHolder.SingleRoads)
             {
-                if (grid.TryGetCell(singleRoad.transform.position, out Cell cell))
-                {
-                    cell.PlayAnimation();
-                    cell.AnimationFinished += ClearRoad;
-                }
+                if (grid.TryGetCell(singleRoad.transform.position, out Cell cell) == false)
+                    continue;
+
+                cell.PlayAnimation();
+                cell.AnimationFinished += ClearRoad;
             }
 
             yield return _delay;

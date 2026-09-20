@@ -26,22 +26,12 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public T GetObject(Transform parent)
     {
-        if (_pool.Count > 0)
-        {
-            return _pool.Dequeue();
-        }
-
-        return CrateObject(parent);
+        return _pool.Count > 0 ? _pool.Dequeue() : CrateObject(parent);
     }
 
     public T GetObjectFromList()
     {
-        if (_pool.Count > 0)
-        {
-            return _pool.Dequeue();
-        }
-
-        return CrateObjectFromList();
+        return _pool.Count > 0 ? _pool.Dequeue() : CrateObjectFromList();
     }
 
     public void PutObject(T obj)

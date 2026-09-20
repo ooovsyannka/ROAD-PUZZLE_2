@@ -1641,7 +1641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _streetGround: {fileID: 8482941137927119797, guid: a459d42ac00a7f440a2a297c1a1c7546,
     type: 3}
-  _grid: {fileID: 0}
+  _grid: {fileID: 7839227580207206306}
 --- !u!1001 &1152240257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2020,6 +2020,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1480049526}
+    - targetCorrespondingSourceObject: {fileID: 7099668608600028923, guid: b4510ab16120fc8459cb366910d81972,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1171894346}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4510ab16120fc8459cb366910d81972, type: 3}
 --- !u!114 &1152240258 stripped
@@ -2076,6 +2080,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d111ebba2e8b7499e0043affbd3b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1171894345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1171894346}
+  - component: {fileID: 1171894348}
+  - component: {fileID: 1171894347}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1171894346
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171894345}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1690912985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 65.90352, y: -307.9878}
+  m_SizeDelta: {x: 130, y: 230}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1171894347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171894345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1604159000, guid: 6d1a2570067e3ae4cb5c72a2bca3b8d5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1171894348
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171894345}
+  m_CullTransparentMesh: 1
 --- !u!114 &1201495892 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8938172910783796180, guid: b4510ab16120fc8459cb366910d81972,
@@ -2488,7 +2567,7 @@ MonoBehaviour:
   - {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
   - {x: 0, y: 1, z: 0, w: -0.00000004371139}
   - {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
-  roadNodePrefab: {fileID: 2816119586269705960, guid: 5afb9faac20038c4f86f201f558e3925,
+  _roadNodePrefab: {fileID: 2816119586269705960, guid: 5afb9faac20038c4f86f201f558e3925,
     type: 3}
   _curvePrevab: {fileID: 7534592489795577663, guid: da6caba2f9d346540ae323de1c11ea1f,
     type: 3}
@@ -2927,6 +3006,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d111ebba2e8b7499e0043affbd3b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1690912985 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7099668608600028923, guid: b4510ab16120fc8459cb366910d81972,
+    type: 3}
+  m_PrefabInstance: {fileID: 1152240257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1693180099 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8630282924316561870, guid: 1282645506b245a40a51bae9bee860bd,
@@ -2969,7 +3054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _light: {fileID: 999107199}
-  _streetGroundSpawner: {fileID: 0}
+  _streetGroundSpawner: {fileID: 1138175355}
   _delay: 0.5
 --- !u!4 &1703064585
 Transform:

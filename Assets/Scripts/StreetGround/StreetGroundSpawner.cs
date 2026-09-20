@@ -22,18 +22,18 @@ public class StreetGroundSpawner : MonoBehaviour
         {
             Cell cell = _grid.TryGetRandomEmptyCell();
 
-            if (cell != null)
-            {
-                cell.Fill();
-                StreetGround streetGround = _streetGroundSpawner.Spawn(cell.transform.position + Vector3.up, null);
-                streetGround.Died += _streetGroundSpawner.ReturnObjectInPool;
-                _tempStreetGrounds.Add(streetGround);
-                streetGround.RotatoinStretLampByCell(_grid.Cells[12]);//*
+            if (cell == null) 
+                continue;
+            
+            cell.Fill();
+            StreetGround streetGround = _streetGroundSpawner.Spawn(cell.transform.position + Vector3.up, null);
+            streetGround.Died += _streetGroundSpawner.ReturnObjectInPool;
+            _tempStreetGrounds.Add(streetGround);
+            streetGround.RotatoinStretLampByCell(_grid.Cells[12]);//*
 
-                if (streetGround.isActiveAndEnabled)
-                {
-                    streetGround.PlayGrowAnimation();
-                }
+            if (streetGround.isActiveAndEnabled)
+            {
+                streetGround.PlayGrowAnimation();
             }
         }
     }

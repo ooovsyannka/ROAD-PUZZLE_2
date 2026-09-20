@@ -13,14 +13,7 @@ public abstract class CarInfo : MonoBehaviour
 
     public void UpdateLockImage(bool IsBougth)
     {
-        if (IsBougth == true)
-        {
-            _lock.sprite = _openLock;
-        }
-        else
-        {
-            _lock.sprite = _closeLock;
-        }
+        _lock.sprite = IsBougth == true ? _openLock : _closeLock;
     }
 
     public void UpdateInfo(string name, string speed)

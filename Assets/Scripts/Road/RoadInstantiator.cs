@@ -4,7 +4,9 @@ using UnityEngine.Serialization;
 
 public class RoadInstantiator : MonoBehaviour
 {
-    [FormerlySerializedAs("roadNodeTempPrefab")] [FormerlySerializedAs("_roadPrefab")] [SerializeField] private RoadNode roadNodePrefab;
+    [FormerlySerializedAs("roadNodeTempPrefab")] [FormerlySerializedAs("_roadPrefab")] [SerializeField]
+    private RoadNode roadNodePrefab;
+
     [SerializeField] private StartRoad _startRoadPrefab;
     [SerializeField] private FinishRoad _finishRoadPrefab;
     [SerializeField] private CurveSample _curveSample;
@@ -29,27 +31,29 @@ public class RoadInstantiator : MonoBehaviour
 
     private void TryInstantiateStartRoad(List<StartRoadSection> startRoadSections)
     {
-        if (startRoadSections != null)
+        if (startRoadSections == null)
+            return;
+
+        foreach (StartRoadSection startRoadSection in startRoadSections)
         {
-            foreach (StartRoadSection startRoadSection in startRoadSections)
-            {
-                StartRoad startRoad = Instantiate(_startRoadPrefab, startRoadSection.RoadSectionTransform.Position, startRoadSection.RoadSectionTransform.Rotation);
-                startRoad.SetIndex(startRoadSection.Index);
-                _startRoads.Add(startRoad);
-            }
+            StartRoad startRoad = Instantiate(_startRoadPrefab, startRoadSection.RoadSectionTransform.Position,
+                startRoadSection.RoadSectionTransform.Rotation);
+            startRoad.SetIndex(startRoadSection.Index);
+            _startRoads.Add(startRoad);
         }
     }
 
     private void TryInstantiateFinishRoad(List<FinishRoadSection> finishRoadSections)
     {
-        if (finishRoadSections != null)
+        if (finishRoadSections == null)
+            return;
+
+        foreach (FinishRoadSection finishRoadSection in finishRoadSections)
         {
-            foreach (FinishRoadSection finishRoadSection in finishRoadSections)
-            {
-                FinishRoad finishRoad = Instantiate(_finishRoadPrefab, finishRoadSection.RoadSectionTransform.Position, finishRoadSection.RoadSectionTransform.Rotation);
-                finishRoad.SetIndex(finishRoadSection.Index);
-                _finishRoads.Add(finishRoad);
-            }
+            FinishRoad finishRoad = Instantiate(_finishRoadPrefab, finishRoadSection.RoadSectionTransform.Position,
+                finishRoadSection.RoadSectionTransform.Rotation);
+            finishRoad.SetIndex(finishRoadSection.Index);
+            _finishRoads.Add(finishRoad);
         }
     }
 
@@ -57,76 +61,71 @@ public class RoadInstantiator : MonoBehaviour
     {
         SingleRoad singleRoad = null;
 
-        if (multiRoadSections != null)
+        if (multiRoadSections is not { Count: > 0 })
+            return;
+
+        foreach (MultiRoadSection multiRoadSection in multiRoadSections)
         {
-            if (multiRoadSections.Count > 0)
+            RoadNode roadNode = Instantiate(roadNodePrefab);
+
+            foreach (SingleRoadSection roadSection in multiRoadSection.SingleRoadSections)
             {
-                foreach (MultiRoadSection multiRoadSection in multiRoadSections)
+                singleRoad = roadSection.RoadNodeType switch
                 {
-                    RoadNode roadNode = Instantiate(roadNodePrefab);
+                    RoadNodeType.Curve => InstantiateCurveRoad(roadNode),
+                    RoadNodeType.Straight => InstantiateStraightRoad(roadNode),
+                    _ => singleRoad
+                };
 
-                    foreach (SingleRoadSection roadSection in multiRoadSection.SingleRoadSections)
-                    {
-                        if (roadSection.RoadNodeType == RoadNodeType.Curve)
-                        {
-                            singleRoad = InstantiateCurveRoad(roadNode);
-                        }
-                        else if (roadSection.RoadNodeType == RoadNodeType.Straight)
-                        {
-                            singleRoad = InstantiateStraightRoad(roadNode);
-                        }
+                if (singleRoad == null)
+                    continue;
 
-                        if (singleRoad != null)
-                        {
-                            singleRoad.transform.localPosition = roadSection.RoadSectionTransforms.Position;
-                            singleRoad.transform.localRotation = roadSection.RoadSectionTransforms.Rotation;
-                            roadNode.SetRoadPreview(Instantiate(_curveSample.SinglePreview, singleRoad.transform.localPosition, Quaternion.identity));
-                            roadNode.AddRoad(singleRoad);
-                        }
-                    }
-
-                    roadNode.AddMergePoint(InstantiateMergePoint(multiRoadSection.EnterPointPosition, roadNode),
-                            InstantiateMergePoint(multiRoadSection.ExitPointPosition, roadNode));
-                    roadNode.transform.position = multiRoadSection.RoadSectionTransforms.Position;
-                    roadNode.transform.rotation = multiRoadSection.RoadSectionTransforms.Rotation;
-                    roadNode.RoadRotation.SetInitialRotation();
-                    _roads.Add(roadNode);
-                }
+                singleRoad.transform.localPosition = roadSection.RoadSectionTransforms.Position;
+                singleRoad.transform.localRotation = roadSection.RoadSectionTransforms.Rotation;
+                roadNode.SetRoadPreview(Instantiate(_curveSample.SinglePreview, singleRoad.transform.localPosition,
+                    Quaternion.identity));
+                roadNode.AddRoad(singleRoad);
             }
+
+            roadNode.AddMergePoint(InstantiateMergePoint(multiRoadSection.EnterPointPosition, roadNode),
+                InstantiateMergePoint(multiRoadSection.ExitPointPosition, roadNode));
+            roadNode.transform.position = multiRoadSection.RoadSectionTransforms.Position;
+            roadNode.transform.rotation = multiRoadSection.RoadSectionTransforms.Rotation;
+            roadNode.RoadRotation.SetInitialRotation();
+            _roads.Add(roadNode);
         }
     }
 
     private void TryInstantiateSingleRoad(List<SingleRoadSection> singleRoadSections)
     {
-        if (singleRoadSections != null)
+        if (singleRoadSections is not { Count: > 0 }) 
+            return;
+        
+        foreach (SingleRoadSection roadSection in singleRoadSections)
         {
-            if (singleRoadSections.Count > 0)
+            RoadNode roadNode = Instantiate(roadNodePrefab);
+
+            switch (roadSection.RoadNodeType)
             {
-                foreach (SingleRoadSection roadSection in singleRoadSections)
-                {
-                    RoadNode roadNode = Instantiate(roadNodePrefab);
-
-                    if (roadSection.RoadNodeType == RoadNodeType.Curve)
-                    {
-                        roadNode.AddRoad(InstantiateCurveRoad(roadNode));
-                        roadNode.AddMergePoint(InstantiateMergePoint(_curveSample.EnterPoint.transform.localPosition, roadNode),
-                            InstantiateMergePoint(_curveSample.ExitPoint.transform.localPosition, roadNode));
-                        roadNode.SetRoadPreview(Instantiate(_curveSample.SinglePreview));
-                    }
-                    else if (roadSection.RoadNodeType == RoadNodeType.Straight)
-                    {
-                        roadNode.AddRoad(InstantiateStraightRoad(roadNode));
-                        roadNode.AddMergePoint(InstantiateMergePoint(_straightSample.EnterPoint.transform.localPosition, roadNode),
-                            InstantiateMergePoint(_straightSample.ExitPoint.transform.localPosition, roadNode));
-                        roadNode.SetRoadPreview(Instantiate(_straightSample.SinglePreview));
-                    }
-
-                    roadNode.transform.position = roadSection.RoadSectionTransforms.Position;
-                    roadNode.transform.rotation = roadSection.RoadSectionTransforms.Rotation;
-                    roadNode.RoadRotation.SetInitialRotation();
-                    _roads.Add(roadNode);
-                }
+                case RoadNodeType.Curve:
+                    roadNode.AddRoad(InstantiateCurveRoad(roadNode));
+                    roadNode.AddMergePoint(InstantiateMergePoint(_curveSample.EnterPoint.transform.localPosition, roadNode),
+                        InstantiateMergePoint(_curveSample.ExitPoint.transform.localPosition, roadNode));
+                    roadNode.SetRoadPreview(Instantiate(_curveSample.SinglePreview));
+                    break;
+                case RoadNodeType.Straight:
+                    roadNode.AddRoad(InstantiateStraightRoad(roadNode));
+                    roadNode.AddMergePoint(
+                        InstantiateMergePoint(_straightSample.EnterPoint.transform.localPosition, roadNode),
+                        InstantiateMergePoint(_straightSample.ExitPoint.transform.localPosition, roadNode));
+                    roadNode.SetRoadPreview(Instantiate(_straightSample.SinglePreview));
+                    break;
             }
+
+            roadNode.transform.position = roadSection.RoadSectionTransforms.Position;
+            roadNode.transform.rotation = roadSection.RoadSectionTransforms.Rotation;
+            roadNode.RoadRotation.SetInitialRotation();
+            _roads.Add(roadNode);
         }
     }
 
@@ -138,5 +137,5 @@ public class RoadInstantiator : MonoBehaviour
 
     private MergePoint InstantiateMergePoint(Vector3 localPosition, RoadNode roadNode) =>
         Instantiate(_mergePointPrefab, localPosition,
-                            Quaternion.identity, roadNode.MergePointHolder.transform);
+            Quaternion.identity, roadNode.MergePointHolder.transform);
 }

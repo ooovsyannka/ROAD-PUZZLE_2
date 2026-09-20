@@ -24,22 +24,21 @@ public class Grid : MonoBehaviour
 
     public void InitializeGrid()
     {
-        if (_cells != null)
-        {
-            _gridCells = new Cell[_maxLengthGridY, _maxLengthGridX];
-            int index = 0;
+        if (_cells == null) 
+            return;
+        
+        _gridCells = new Cell[_maxLengthGridY, _maxLengthGridX];
+        int index = 0;
 
-            for (int y = 0; y < _maxLengthGridY; y++)
+        for (int y = 0; y < _maxLengthGridY; y++)
+        {
+            for (int x = 0; x < _maxLengthGridX; x++)
             {
-                for (int x = 0; x < _maxLengthGridX; x++)
-                {
-                    Cell cell = _cells[index];
-                    cell.Index = index;
-                    cell.BecameEmpty += MinusFreeCellCount;
-                    cell.Filled += AddFreeCellCount;
-                    _gridCells[y, x] = cell;
-                    index++;
-                }
+                Cell cell = _cells[index];
+                cell.BecameEmpty += MinusFreeCellCount;
+                cell.Filled += AddFreeCellCount;
+                _gridCells[y, x] = cell;
+                index++;
             }
         }
     }
@@ -77,12 +76,12 @@ public class Grid : MonoBehaviour
     {
         foreach (SingleRoad singleRoad in roads)
         {
-            if (HasEmptyCell(previewPosition + singleRoad.transform.localPosition) == false)
+            if (HasEmptyCell(previewPosition + singleRoad.transform.localPosition))
+                continue;
+            
+            if (HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
             {
-                if (HasEmptyCell(previewPosition - singleRoad.transform.localPosition))
-                {
-                    previewPosition -= singleRoad.transform.localPosition;
-                }
+                previewPosition -= singleRoad.transform.localPosition;
             }
         }
     }
@@ -107,19 +106,19 @@ public class Grid : MonoBehaviour
     {
         Cell cell = null;
 
-        if (IsFull)
+        if (!IsFull)
+            return cell;
+        
+        bool _isCreateCell = false;
+
+        while (_isCreateCell == false)
         {
-            bool _isCreateCell = false;
+            int randomCellIndex = Random.Range(0, _cells.Count);
+            cell = _cells[randomCellIndex];
 
-            while (_isCreateCell == false)
+            if (cell.IsFree)
             {
-                int randomCellIndex = Random.Range(0, _cells.Count);
-                cell = _cells[randomCellIndex];
-
-                if (cell.IsFree)
-                {
-                    _isCreateCell = true;
-                }
+                _isCreateCell = true;
             }
         }
 
@@ -148,10 +147,7 @@ public class Grid : MonoBehaviour
 
     private Cell GetCellByIndex(Vector3 positionInGrid)
     {
-        if (!IsInsideGrid(positionInGrid))
-            return null;
-
-        return _gridCells[(int)positionInGrid.z, (int)positionInGrid.x];
+        return !IsInsideGrid(positionInGrid) ? null : _gridCells[(int)positionInGrid.z, (int)positionInGrid.x];
     }
 
     private bool IsInsideGrid(Vector3 positionInGrid)

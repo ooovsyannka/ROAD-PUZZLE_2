@@ -28,9 +28,8 @@ public class StreetGround : MonoBehaviour
     {
         _streetLamp.SetRotation(quaternion);
     }
-    
 
-    public void Die()
+    private void Die()
     {
         _streetGroundAnimation.AnimationFinished -= Die;
         Died?.Invoke(this);

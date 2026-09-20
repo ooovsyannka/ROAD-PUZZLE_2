@@ -12,12 +12,12 @@ public class LevelHolder : MonoBehaviour
 
         foreach (LevelData level in _levelsData)
         {
-            if (_levelSaver.IsLevelComleted(level) == false)
-            {
-                levelData = level;
+            if (_levelSaver.IsLevelComleted(level) )
+                continue;
+            
+            levelData = level;
 
-                return true;
-            }
+            return true;
         }
 
         return false;
@@ -29,12 +29,12 @@ public class LevelHolder : MonoBehaviour
 
         foreach (LevelData level in _levelsData)
         {
-            if (level._isComplete == false)
-            {
-                levelData = level;
+            if (level._isComplete )
+                continue;
+            
+            levelData = level;
 
-                return true;
-            }
+            return true;
         }
 
         return false;

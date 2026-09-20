@@ -68,11 +68,11 @@ public class InfinityLevel : MonoBehaviour
 
         foreach (UniversalRoadBoundary universalRoadNode in _universalRoadNodes)
         {
-            if (_grid.TryGetCell(universalRoadNode.transform.position, out Cell cell))
-            {
-                cell.SetRoadBoundary(universalRoadNode);
-                _chains.CreateChain(universalRoadNode);
-            }
+            if (_grid.TryGetCell(universalRoadNode.transform.position, out Cell cell)==false) 
+                continue;
+            
+            cell.SetRoadBoundary(universalRoadNode);
+            _chains.CreateChain(universalRoadNode);
         }
 
         NextMove();
@@ -126,14 +126,14 @@ public class InfinityLevel : MonoBehaviour
 
     private void TryCompleteChain(IFinishRoad iFinishRoad)
     {
-        if (iFinishRoad is UniversalRoadBoundary universalFinishRoad)
-        {
-            Car car = _currentUniversalStartRoad.Car;
-            Route route = _chains.CreateRoute(_currentStartRodNode, universalFinishRoad.SplineComputer);
-            car.Move(route.SplineComputer, universalFinishRoad.SplineComputer);
-            car.MoveFinished += CleanChain;
-            car.MoveFinished += route.CleanSplineComputer;
-        }
+        if (iFinishRoad is not UniversalRoadBoundary universalFinishRoad) 
+            return;
+        
+        Car car = _currentUniversalStartRoad.Car;
+        Route route = _chains.CreateRoute(_currentStartRodNode, universalFinishRoad.SplineComputer);
+        car.Move(route.SplineComputer, universalFinishRoad.SplineComputer);
+        car.MoveFinished += CleanChain;
+        car.MoveFinished += route.CleanSplineComputer;
     }
 
     private void CleanChain(Car car)
@@ -148,12 +148,12 @@ public class InfinityLevel : MonoBehaviour
 
     private void TryFinidhGame(RoadNode _)
     {
-        if (_chains.ChainCopmete == false)
+        if (_chains.ChainCopmete ) 
+            return;
+        
+        if (_grid.IsFull == false)
         {
-            if (_grid.IsFull == false)
-            {
-                FinishGame("Закончилось Место");
-            }
+            FinishGame("Закончилось Место");
         }
     }
 
@@ -193,16 +193,16 @@ public class InfinityLevel : MonoBehaviour
             _brokeUniversalRoad.Fix();
         }
 
-        if (Random.Range(0, 1f) > i)
-        {
-            UniversalRoadBoundary randomUniversalRoadBoundary =
-                _universalRoadNodes[Random.Range(0, _universalRoadNodes.Count)];
+        if (Random.Range(0, 1f) > i==false)
+            return;
+        
+        UniversalRoadBoundary randomUniversalRoadBoundary =
+            _universalRoadNodes[Random.Range(0, _universalRoadNodes.Count)];
 
-            if (randomUniversalRoadBoundary.RoadBoundaryType == RoadBoundaryType.Finish)
-            {
-                randomUniversalRoadBoundary.Broken();
-                _brokeUniversalRoad = randomUniversalRoadBoundary;
-            }
+        if (randomUniversalRoadBoundary.RoadBoundaryType == RoadBoundaryType.Finish)
+        {
+            randomUniversalRoadBoundary.Broken();
+            _brokeUniversalRoad = randomUniversalRoadBoundary;
         }
     }
 

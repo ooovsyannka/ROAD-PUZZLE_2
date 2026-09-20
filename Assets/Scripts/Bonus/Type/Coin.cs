@@ -19,12 +19,12 @@ public class Coin : Bonus
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Car _))
-        {
-            BonusAnimation.PlayDieAnimation();
-            OnCollected?.Invoke(this, BonusCount);
-            ParticleSystem.Play();
-        }
+        if (other.TryGetComponent(out Car _) == false) 
+            return;
+        
+        BonusAnimation.PlayDieAnimation();
+        OnCollected?.Invoke(this, BonusCount);
+        ParticleSystem.Play();
     }
 
     protected override void Die()

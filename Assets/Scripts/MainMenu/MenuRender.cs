@@ -15,11 +15,11 @@ public class MenuRender : MonoBehaviour
 
     public void ShowLevelNumber(int levelNumber)
     {
-        if (levelNumber > 0)
-        {
-            _levelNumberText.text = levelNumber.ToString();
-            _messageAllLevelComplete.gameObject.SetActive(false);
-        }
+        if (levelNumber <= 0) 
+            return;
+        
+        _levelNumberText.text = levelNumber.ToString();
+        _messageAllLevelComplete.gameObject.SetActive(false);
     }
 
     public void ShowMessage()

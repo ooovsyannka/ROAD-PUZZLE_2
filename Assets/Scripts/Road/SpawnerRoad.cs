@@ -4,11 +4,13 @@ using UnityEngine.Serialization;
 
 public class SpawnerRoad : MonoBehaviour
 {
-    private const float CurveRoadChance = 0.6f;
+    private const float CurveRoadChance = 0.5f;
 
     [SerializeField] private Grid _grid;
     [SerializeField] private List<Quaternion> _quaternions;
-    [FormerlySerializedAs("roadNodeTempPrefab")] [FormerlySerializedAs("_roadPrefab")] [SerializeField] private RoadNode roadNodePrefab;
+
+    [SerializeField] private RoadNode _roadNodePrefab;
+
     [SerializeField] private CurveSample _curvePrevab;
     [SerializeField] private StraightSample _straightPrefab;
     [SerializeField] private MergePoint _mergePointPrefab;
@@ -27,7 +29,7 @@ public class SpawnerRoad : MonoBehaviour
 
     private void Awake()
     {
-        _spawnerRoad = new Spawner<RoadNode>(roadNodePrefab);
+        _spawnerRoad = new Spawner<RoadNode>(_roadNodePrefab);
         _spawnerCurve = new Spawner<CurveSample>(_curvePrevab);
         _spawnerStraight = new Spawner<StraightSample>(_straightPrefab);
     }
@@ -44,52 +46,51 @@ public class SpawnerRoad : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) == false ||
+            _grid.TryGetCell(_grid.TryGetRandomEmptyCell().transform.position, out Cell cell) == false)
+            return;
+
+        RoadNode roadNode = _spawnerRoad.Spawn(cell.transform.position, null);
+        _tempRoads.Add(roadNode);
+        cell.SetRoad(roadNode);
+
+        string name;
+
+        float sampleRoadChance = Random.Range(0, 1f);
+        SampleSingleRoad sampleSingleRoad;
+
+        if (sampleRoadChance < CurveRoadChance)
         {
-            if (_grid.TryGetCell(_grid.TryGetRandomEmptyCell().transform.position, out Cell cell))
-            {
-                RoadNode roadNode = _spawnerRoad.Spawn(cell.transform.position, null);
-                _tempRoads.Add(roadNode);
-                cell.SetRoad(roadNode);
-
-                string name;
-
-                float sampleRoadChance = Random.Range(0, 1f);
-                SampleSingleRoad sampleSingleRoad;
-
-                if (sampleRoadChance < CurveRoadChance)
-                {
-                    sampleSingleRoad = _spawnerStraight.Spawn(roadNode.transform.position, roadNode.transform);
-                    name = "Straight";
-                }
-                else
-                {
-                    sampleSingleRoad = _spawnerCurve.Spawn(roadNode.transform.position, roadNode.transform);
-                    name = "Curve";
-                }
-                indexRoad++;
-                InitializeRoad(roadNode, sampleSingleRoad);
-                SinglePreview singlePreview = Instantiate(sampleSingleRoad.SinglePreview);
-                roadNode.SetRoadPreview(singlePreview);
-                singlePreview.transform.localPosition = Vector3.zero;
-                roadNode.transform.position = cell.transform.position;
-                roadNode.name = roadNode.name + name + indexRoad.ToString();
-            }
+            sampleSingleRoad = _spawnerStraight.Spawn(roadNode.transform.position, roadNode.transform);
+            name = "Straight";
         }
+        else
+        {
+            sampleSingleRoad = _spawnerCurve.Spawn(roadNode.transform.position, roadNode.transform);
+            name = "Curve";
+        }
+
+        indexRoad++;
+        InitializeRoad(roadNode, sampleSingleRoad);
+        SinglePreview singlePreview = Instantiate(sampleSingleRoad.SinglePreview);
+        roadNode.SetRoadPreview(singlePreview);
+        singlePreview.transform.localPosition = Vector3.zero;
+        roadNode.transform.position = cell.transform.position;
+        roadNode.name = roadNode.name + name + indexRoad.ToString();
     }
 
-    private void CreateRoad(RoadNode _ = null)
+    /*private void CreateRoad(RoadNode _ = null)
     {
         bool canSpawRoad = true;
 
         foreach (Cell cell in _roadSpawnPoints)
         {
-            if (cell.IsFree == false)
-            {
-                canSpawRoad = false;
+            if (cell.IsFree)
+                continue;
 
-                break;
-            }
+            canSpawRoad = false;
+
+            break;
         }
 
         if (canSpawRoad)
@@ -113,6 +114,42 @@ public class SpawnerRoad : MonoBehaviour
                     sampleSingleRoad = _spawnerCurve.Spawn(roadNode.transform.position, roadNode.transform);
                     name = "Curve";
                 }
+
+                indexRoad++;
+                InitializeRoad(roadNode, sampleSingleRoad);
+                SinglePreview singlePreview = Instantiate(sampleSingleRoad.SinglePreview);
+                roadNode.SetRoadPreview(singlePreview);
+                singlePreview.transform.localPosition = Vector3.zero;
+                roadNode.transform.position = cell.transform.position;
+                roadNode.name = roadNode.name + name + indexRoad.ToString();
+            }
+        }
+    }*/
+
+    private void CreateRoad(RoadNode _ = null)
+    {
+        foreach (Cell cell in _roadSpawnPoints)
+        {
+            if (cell.IsFree)
+            {
+                RoadNode roadNode = _spawnerRoad.Spawn(cell.transform.position, null);
+                _tempRoads.Add(roadNode);
+                cell.SetRoad(roadNode);
+                string name;
+                float sampleRoadChance = Random.Range(0, 1f);
+                SampleSingleRoad sampleSingleRoad;
+
+                if (sampleRoadChance < CurveRoadChance)
+                {
+                    sampleSingleRoad = _spawnerStraight.Spawn(roadNode.transform.position, roadNode.transform);
+                    name = "Straight";
+                }
+                else
+                {
+                    sampleSingleRoad = _spawnerCurve.Spawn(roadNode.transform.position, roadNode.transform);
+                    name = "Curve";
+                }
+
                 indexRoad++;
                 InitializeRoad(roadNode, sampleSingleRoad);
                 SinglePreview singlePreview = Instantiate(sampleSingleRoad.SinglePreview);
@@ -156,5 +193,4 @@ public class SpawnerRoad : MonoBehaviour
         _pastQuaternionIndex = indexQuaternion;
         currentRoad.transform.rotation = currentQuaternion;
     }
-
 }

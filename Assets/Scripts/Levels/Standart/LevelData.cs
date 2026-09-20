@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelData", menuName = "LevelIndex", order = 1)]
+[CreateAssetMenu(fileName = "LevelData", menuName = "Level", order = 1)]
 
 public partial class LevelData : ScriptableObject
 {

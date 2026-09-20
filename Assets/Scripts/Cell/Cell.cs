@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -10,9 +10,6 @@ public class Cell : MonoBehaviour
     private bool _isFree;
 
     public bool IsFree => _isFree;
-    public int Index;
-
-    public Vector3 PositionInCell;
 
     public event Action<Cell> AnimationFinished;
     public event Action Filled;
@@ -36,7 +33,6 @@ public class Cell : MonoBehaviour
     {
         if (_animation != null)
             _animation.Finished += AnimationFinish;
-
     }
 
     private void OnDisable()
@@ -49,14 +45,12 @@ public class Cell : MonoBehaviour
     {
         roadNode = null;
 
-        if (_roadNode != null)
-        {
-            roadNode = _roadNode;
+        if (_roadNode == null)
+            return false;
 
-            return true;
-        }
+        roadNode = _roadNode;
 
-        return false;
+        return true;
     }
 
     public void CleanRoad()
@@ -70,14 +64,12 @@ public class Cell : MonoBehaviour
     {
         roadBoundary = null;
 
-        if (_roadBoundary != null)
-        {
-            roadBoundary = _roadBoundary;
+        if (_roadBoundary == null)
+            return false;
 
-            return true;
-        }
+        roadBoundary = _roadBoundary;
 
-        return false;
+        return true;
     }
 
     public void SetRoad(RoadNode roadNode)
@@ -86,7 +78,7 @@ public class Cell : MonoBehaviour
         Fill();
 
         if (_animation != null)
-           _roadNode.transform.SetParent(_animation.transform);
+            _roadNode.transform.SetParent(_animation.transform);
     }
 
     public void SetRoadBoundary(RoadBoundary roadBoundary)
@@ -116,6 +108,4 @@ public class Cell : MonoBehaviour
     {
         AnimationFinished?.Invoke(this);
     }
-
 }
-

@@ -9,19 +9,18 @@ public class Wallet : MonoBehaviour
 
     private int _countCoin;
 
-    public int CountCoin => _countCoin;
-
     private void OnEnable()
     {
         LoadCoinsFromSave();
+        ShowWalletCount();
     }
-
+    
     public void AddCoin(int count)
     {
         LoadCoinsFromSave();
         _countCoin += count;
         SaveCoinsInSaver();
-        UpdateWalletInfo();
+        ShowWalletCount();
     }
 
     private void Update()
@@ -42,25 +41,22 @@ public class Wallet : MonoBehaviour
         _countCoin -= minusCount;
 
         SaveCoinsInSaver();
-        UpdateWalletInfo();
+        ShowWalletCount();
 
         return true;
     }
 
-    public void UpdateWalletInfo()
+    private void ShowWalletCount()
     {
         _walletRender.ShowWalletInfo(_countCoin);
     }
 
-    public void SetWalletRender(WalletRender walletRender)
-    {
-        _walletRender = walletRender;
-    }
 
     private void LoadCoinsFromSave()
     {
         _countCoin = _walletSaver.LoadCoins();
     }
+    
     private void SaveCoinsInSaver()
     {
         _walletSaver.SaveCoinInWalet(_countCoin);

@@ -44,15 +44,15 @@ public class Spawner<T> where T : MonoBehaviour
 
     public void CleanActiveObject()
     {
-        if (_activeObjects.Count > 0)
+        if (_activeObjects.Count <= 0) 
+            return;
+        
+        for (int i = _activeObjects.Count - 1; i >= 0; i--)
         {
-            for (int i = _activeObjects.Count - 1; i >= 0; i--)
-            {
-                T currentObject = _activeObjects[i];
+            T currentObject = _activeObjects[i];
 
-                currentObject.gameObject.SetActive(false);
-                ReturnObjectInPool(currentObject);
-            }
+            currentObject.gameObject.SetActive(false);
+            ReturnObjectInPool(currentObject);
         }
     }
 }

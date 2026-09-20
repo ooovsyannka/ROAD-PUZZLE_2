@@ -10,15 +10,16 @@ public class Shop : MonoBehaviour
     [SerializeField] private WalletRender _walletRender;
     [SerializeField] private Button _buyButton;
     [SerializeField] private Button _closeCarInfoButton;
+    [SerializeField] private Button _carSelectButton;
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private RectTransform _contentRectTransform;
     [SerializeField] private InsufficientFundsDisplay _insufficientFundsDisplay;
     [SerializeField] private CarProductSaver _carProductSaver;
+    [SerializeField] private Wallet _wallet;
 
     private CarProduct _carProduct;
     private CarContainer _currentCarContainer;
     private float _duration = 0.5f;
-    private Wallet _wallet;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class Shop : MonoBehaviour
         foreach (CarContainer carContainer in _carContainers)
         {
             carContainer.CarInfo.UpdateLockImage(_carProductSaver.IsCarBought(carContainer.CarGoods));
-            
+
             carContainer.CarGoodsInfoShowed += ShowCarInfoButton;
             carContainer.SetIndex(index);
             index++;
@@ -56,30 +57,21 @@ public class Shop : MonoBehaviour
         StartCoroutine(SmoothlySetCarGoodsPosition(carContainer));
     }
 
-    public void SetWallet(Wallet wallet)
-    {
-        _wallet = wallet;
-        _wallet.SetWalletRender(_walletRender);
-        _wallet.UpdateWalletInfo();
-    }
-
     private void TrySellGoods()
     {
-        if (_carProduct is CarGoods carGoods)
+        if (_carProduct is not CarGoods carGoods 
+            || _carProduct.IsBought)
+            return;
+        
+        if (_wallet.TryRemoveCoin(carGoods.Price))
         {
-            if (_carProduct.IsBought == false)
-            {
-                if (_wallet.TryRemoveCoin(carGoods.Price))
-                {
-                    carGoods.Buy();
-                    _carProductSaver.SaveCarProduct(_carProduct);
-                    _currentCarContainer.CarInfo.UpdateLockImage(true);
-                }
-                else
-                {
-                    _insufficientFundsDisplay.Open();
-                }
-            }
+            carGoods.Buy();
+            _carProductSaver.SaveCarProduct(_carProduct);
+            _currentCarContainer.CarInfo.UpdateLockImage(true);
+        }
+        else
+        {
+            _insufficientFundsDisplay.Open();
         }
     }
 

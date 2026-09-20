@@ -50,7 +50,18 @@ public class RoadRotation : MonoBehaviour
         }
     }
 
-    public void ReturnToInitialRotation()
+    public void ResetTiltImmediately()
+    {
+        if (_returnCoroutine != null)
+        {
+            StopCoroutine(_returnCoroutine);
+            _returnCoroutine = null;
+        }
+
+        transform.localRotation = _initialLocalRotation;
+    }
+    
+    private void ReturnToInitialRotation()
     {
         if (_returnCoroutine != null) return;
 
@@ -63,18 +74,7 @@ public class RoadRotation : MonoBehaviour
 
         _returnCoroutine = StartCoroutine(SmoothReturn());
     }
-
-    public void ResetTiltImmediately()
-    {
-        if (_returnCoroutine != null)
-        {
-            StopCoroutine(_returnCoroutine);
-            _returnCoroutine = null;
-        }
-
-        transform.localRotation = _initialLocalRotation;
-    }
-
+    
     private IEnumerator SmoothReturn()
     {
         Quaternion startRotation = transform.localRotation;

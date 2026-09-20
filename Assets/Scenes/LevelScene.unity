@@ -755,6 +755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 154068217}
+  - component: {fileID: 154068218}
   m_Layer: 5
   m_Name: LevelName
   m_TagString: Untagged
@@ -782,6 +783,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &154068218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154068216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e783e21a141584d4d81d8c54cbc88712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelNumberText: {fileID: 1574676375}
 --- !u!1 &209923958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,6 +2793,7 @@ MonoBehaviour:
   _hintButton: {fileID: 52320762}
   _hint: {fileID: 2000995521}
   _levelSaver: {fileID: 973468087}
+  _levelInfoBar: {fileID: 154068218}
   _carPositionY: 5
 --- !u!4 &1539941413
 Transform:
@@ -2810,7 +2825,7 @@ GameObject:
   - component: {fileID: 1574676376}
   - component: {fileID: 1574676375}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: LevelNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2945,7 +2960,7 @@ GameObject:
   - component: {fileID: 1678502570}
   - component: {fileID: 1678502569}
   m_Layer: 0
-  m_Name: WalletSaver
+  m_Name: Wallet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

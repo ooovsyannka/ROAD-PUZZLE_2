@@ -63,12 +63,12 @@ public class RoadBuilder : MonoBehaviour
         foreach (MergePoint mergePoint in universalRoadBoundary.MergePoints)
         {
             if (!_grid.TryGetCell(mergePoint.transform.position, out Cell cell)
-                || !cell.TryGetRoad(out RoadNode road)
+                || cell.TryGetRoad(out RoadNode road) == false
                 || (road.MergePointHolder.EnterPoint.transform.position != universalRoadBoundary.transform.position
                     && road.MergePointHolder.ExitPoint.transform.position != universalRoadBoundary.transform.position)
                 || universalRoadBoundary.RoadBoundaryType != RoadBoundaryType.Start
                 || road.IsConnect
-                || !_chains.TryAddRoadInChain(universalRoadBoundary, road))
+                || _chains.TryAddRoadInChain(universalRoadBoundary, road) == false)
                 continue;
 
             ConnectRoad(road, null, 0);
@@ -84,8 +84,8 @@ public class RoadBuilder : MonoBehaviour
             if (roadNode.IsConnect == findRoadNode.IsConnect)
                 return;
 
-            if (!CanConnectRoad(findRoadNode.MergePointHolder.EnterPoint, roadNode)
-                && !CanConnectRoad(findRoadNode.MergePointHolder.ExitPoint, roadNode))
+            if (CanConnectRoad(findRoadNode.MergePointHolder.EnterPoint, roadNode) == false
+                && CanConnectRoad(findRoadNode.MergePointHolder.ExitPoint, roadNode) == false)
                 return;
 
             if (roadNode.IsConnect)
@@ -96,30 +96,24 @@ public class RoadBuilder : MonoBehaviour
             return;
         }
 
-        if (!cell.TryGetRoadBoundary(out RoadBoundary roadBoundary)) return;
-
-        if (roadBoundary is StartRoad startRoad)
-        {
-            AttemptChainCreationOnOccupiedPosition(roadNode, startRoad, startRoad.MergePoint);
+        if (cell.TryGetRoadBoundary(out RoadBoundary roadBoundary) == false)
             return;
-        }
-        
-        if (roadBoundary is FinishRoad finishRoad)
+
+        switch (roadBoundary)
         {
-            if (roadBoundary.Index == finishRoad.Index
-                && !finishRoad.IsConnect
-                && roadNode.IsConnect
-                && CanConnectRoad(finishRoad.MergePoint, roadNode))
-            {
+            case StartRoad startRoad:
+                AttemptChainCreationOnOccupiedPosition(roadNode, startRoad, startRoad.MergePoint);
+                return;
+            case FinishRoad finishRoad when roadBoundary.Index == finishRoad.Index
+                                            && !finishRoad.IsConnect
+                                            && roadNode.IsConnect
+                                            && CanConnectRoad(finishRoad.MergePoint, roadNode):
                 finishRoad.Connect();
 
-
                 return;
-            }
         }
 
-        if (roadBoundary is not UniversalRoadBoundary universalRoadNode
-            || universalRoadNode.RoadBoundaryType != RoadBoundaryType.Finish
+        if (roadBoundary is not UniversalRoadBoundary { RoadBoundaryType: RoadBoundaryType.Finish } universalRoadNode
             || universalRoadNode.IsBroken
             || universalRoadNode.IsConnect
             || !roadNode.IsConnect)
