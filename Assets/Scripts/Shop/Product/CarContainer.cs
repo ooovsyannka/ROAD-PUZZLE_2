@@ -14,7 +14,7 @@ public class CarContainer : MonoBehaviour
     [SerializeField] private int _index;
     [SerializeField] private Car _carPrefab;
     [SerializeField] private CarInfo _carInfo;
-
+    
     private float _maxAngle = 360;
     private bool _isOpen = false;
     private float _rotationSpeed = 45f;
@@ -24,7 +24,7 @@ public class CarContainer : MonoBehaviour
     private RectTransform _rectTransform;
 
     public int Index => _index;
-    public CarProduct CarGoods => _carProduct;
+    public CarProduct CarProduct => _carProduct;
     public CarInfo CarInfo => _carInfo;
     public RectTransform RectTransform => _rectTransform;
 

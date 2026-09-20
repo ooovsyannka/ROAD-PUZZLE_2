@@ -10,10 +10,17 @@ public abstract class CarInfo : MonoBehaviour
     [SerializeField] private Sprite _closeLock;
     [SerializeField] private Sprite _openLock;
     [SerializeField] private TextMeshProUGUI _speed;
+    [SerializeField] private Image _selectImage;
+    [SerializeField] private Sprite _selectSprite;
 
     public void UpdateLockImage(bool IsBougth)
     {
-        _lock.sprite = IsBougth == true ? _openLock : _closeLock;
+        _lock.sprite = IsBougth ? _openLock : _closeLock;
+    }
+
+    public void UpdateSelectImage(bool isSelect)
+    {
+        _selectImage.sprite = isSelect ? _selectSprite : null;
     }
 
     public void UpdateInfo(string name, string speed)

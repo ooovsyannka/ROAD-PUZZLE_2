@@ -18,14 +18,14 @@ namespace IJunior.TypedScenes
         
         private const string _sceneName = "ShopScene";
         
-        public static void Load(Wallet argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static void Load(LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            LoadScene(_sceneName, loadSceneMode, argument);
+            LoadScene(_sceneName, loadSceneMode);
         }
         
-        public static UnityEngine.AsyncOperation LoadAsync(Wallet argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static UnityEngine.AsyncOperation LoadAsync(LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            return LoadScene(_sceneName, loadSceneMode, argument);
+            return LoadScene(_sceneName, loadSceneMode);
         }
     }
 }

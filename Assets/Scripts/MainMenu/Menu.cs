@@ -65,7 +65,7 @@ public class Menu : MonoBehaviour
 
     private void OpenShop()
     {
-        TryLoadScene(() => ShopScene.Load(_wallet));
+        TryLoadScene(() => ShopScene.Load());
     }
 
     private void TryLoadScene(Action loadScene)

@@ -13,7 +13,7 @@ public class CarSpawner : MonoBehaviour
     {
         foreach(CarProduct carProduct in _carProducts)
         {
-            if (_carProductSaver.IsCarBought(carProduct))
+            if (_carProductSaver.IsCarSelected(carProduct))
             {
                 _carPrefabs.Add(carProduct.CarPrefab);
             }
