@@ -80,10 +80,10 @@ public class Level : MonoBehaviour
 
             cell.SetRoadBoundary(startRoad);
             carSpawnPosition = startRoad.transform.position;
-            Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up);
-            car.transform.rotation = startRoad.transform.rotation;
-            car.UpdateHeadlightsBasedOnTime(_currentLevelData.TimeOfDay);
-            _chains.CreateChain(startRoad);
+            _carSpawner.InstalSelectedCar();
+            Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up, startRoad.transform.rotation,
+                _currentLevelData.TimeOfDay);
+                _chains.CreateChain(startRoad);
             startRoad.SetCar(car);
         }
 
@@ -154,7 +154,7 @@ public class Level : MonoBehaviour
                 _inputReader.StopReadInput();
                 _timer.StopCountdown();
                 _levelSaver.SaveLevel(_currentLevelData);
-                car.MoveFinished += Win;
+                Win();
             }
             else
             {
@@ -170,11 +170,10 @@ public class Level : MonoBehaviour
         _inputReader.StopReadInput();
     }
 
-    private void Win(Car car)
+    private void Win()
     {
         _winGameScreen.Open();
         _currentLevelData.CompleteLevel();
-        car.MoveFinished -= Win;
         _wallet.AddCoin(_currentLevelData.WinCoinCount);
         _earnedCoinText.text = _currentLevelData.WinCoinCount.ToString();
     }

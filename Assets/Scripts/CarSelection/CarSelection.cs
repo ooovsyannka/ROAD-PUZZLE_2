@@ -23,16 +23,22 @@ public class CarSelection : MonoBehaviour
         CarContainer carContainer = _carContainersHolder.CurrentCarContainer;
         CarProduct carProduct = carContainer.CarProduct;
 
-            if (_carProductSaver.IsCarSelected(carProduct))
+        if (_carProductSaver.IsCarSelected(carProduct))
+        {
+            if (_carProductSaver.IsLastSelectCarProduct())
             {
                 _carProductSaver.DeletSelectCarProduct(carProduct);
                 carContainer.CarInfo.UpdateSelectImage(false);
             }
             else
             {
-                _carProductSaver.SaveSelectCarProduct(carProduct);
-                carContainer.CarInfo.UpdateSelectImage(true);
+                print("Последнюю машинку нельзя убрать  ");
             }
-        
+        }
+        else
+        {
+            _carProductSaver.SaveSelectCarProduct(carProduct);
+            carContainer.CarInfo.UpdateSelectImage(true);
+        }
     }
 }

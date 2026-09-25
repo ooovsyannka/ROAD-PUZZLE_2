@@ -25,7 +25,7 @@ public class InputReader : MonoBehaviour
 
     private void Update()
     {
-        if (!_canReadInput) 
+        if (_canReadInput == false) 
             return;
         
         if (Input.GetMouseButtonDown(0))

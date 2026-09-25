@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CarSpawner : MonoBehaviour  
+public class CarSpawner : MonoBehaviour
 {
     [SerializeField] private List<CarProduct> _carProducts;
     [SerializeField] private CarProductSaver _carProductSaver;
-    private List<Car> _carPrefabs = new List<Car>();    
 
     private Spawner<Car> _spawner;
 
-    private void Awake()
+    public void InstalSelectedCar()
     {
-        foreach(CarProduct carProduct in _carProducts)
+        List<Car> _carPrefabs = new List<Car>();
+
+        foreach (CarProduct carProduct in _carProducts)
         {
             if (_carProductSaver.IsCarSelected(carProduct))
             {
@@ -19,22 +20,15 @@ public class CarSpawner : MonoBehaviour
             }
         }
 
-        _spawner ??= new Spawner<Car>(_carPrefabs);
+        _spawner = new Spawner<Car>(_carPrefabs);
     }
 
-    public Car GetRandomCar(Vector3 carPosition)
+    public Car GetRandomCar(Vector3 carPosition,  Quaternion rotation,  TimeOfDay timeOfDay)
     {
-        /*foreach (CarProduct carProduct in _carProducts)
-        {
-            if (_carProductSaver.IsCarBought(carProduct))
-            {
-                _carPrefabs.Add(carProduct.CarPrefab);
-            }
-        }
-
-        _spawner ??= new Spawner<Car>(_carPrefabs);*/
-
         Car car = _spawner.SpawnObjectFromList(carPosition);
+        
+        car.transform.rotation = rotation;
+        car.UpdateHeadlightsBasedOnTime(timeOfDay);
         car.Died += ReturnCarInPool;
 
         return car;

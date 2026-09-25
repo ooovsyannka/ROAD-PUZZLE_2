@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InfinityScoreCalculator : MonoBehaviour
@@ -6,6 +7,7 @@ public class InfinityScoreCalculator : MonoBehaviour
     [SerializeField] private Chains _chains;
     [SerializeField] private InfinityScoreRender _infinityScoreRender;
     [SerializeField] private BestScore _bestScoreBar;
+    [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private ComboWindow _comboWindow;
     [SerializeField] private int _score;
 
@@ -29,8 +31,9 @@ public class InfinityScoreCalculator : MonoBehaviour
     {
         _earnedCoin = (_score * _finalScoreMultiplier).RoundIntToNearest() + collectedСoins;
         _bestScoreBar.BestScoreRender.gameObject.SetActive(false);
+        _scoreText.gameObject.SetActive(false);
         _infinityScoreRender.ShowTotalScore(_score);
-        _infinityScoreRender.ShowBestScore(_score);
+        _infinityScoreRender.ShowBestScore(_bestScoreBar.BestScoreSaver.LoadBestScore());
         _infinityScoreRender.ShowEarnedCoinCount(_earnedCoin);
         TryUpdateBestScore(_score);
     }

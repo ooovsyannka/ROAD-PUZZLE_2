@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CarProductSaver : MonoBehaviour
@@ -8,8 +9,16 @@ public class CarProductSaver : MonoBehaviour
 
 
     private const string BuyCar = nameof(BuyCar);
+    private const string SelectCarCount = nameof(SelectCarCount);
     private const string SelectCar = nameof(SelectCar);
     private const int NumberPurchasedCar = 1;
+
+    private int _selectCarCount;
+
+    private void Awake()
+    {
+        _selectCarCount = PlayerPrefs.GetInt($"{SelectCarCount}");
+    }
 
     private void Update()
     {
@@ -18,13 +27,18 @@ public class CarProductSaver : MonoBehaviour
             foreach (CarContainer carContainer in carContainers)
             {
                 PlayerPrefs.DeleteKey($"{BuyCar} {carContainer.CarProduct.Index}");
-            PlayerPrefs.DeleteKey($"{SelectCar} {carContainer.CarProduct.Index}");
+                PlayerPrefs.DeleteKey($"{SelectCar} {carContainer.CarProduct.Index}");
             }
 
+            _selectCarCount = 1;
+
+            PlayerPrefs.SetInt($"{SelectCarCount}", _selectCarCount);
             PlayerPrefs.SetInt($"{BuyCar} {DefaultCarProduct.Index}", NumberPurchasedCar);
             PlayerPrefs.SetInt($"{SelectCar} {DefaultCarProduct.Index}", NumberPurchasedCar);
             print("Машини почистины");
         }
+
+        print(_selectCarCount);
     }
 
     public void SaveCarProduct(CarProduct carProduct)
@@ -34,12 +48,21 @@ public class CarProductSaver : MonoBehaviour
 
     public void SaveSelectCarProduct(CarProduct carProduct)
     {
+        _selectCarCount++;
+        PlayerPrefs.SetInt($"{SelectCarCount}", _selectCarCount);
         PlayerPrefs.SetInt($"{SelectCar} {carProduct.Index}", NumberPurchasedCar);
     }
 
     public void DeletSelectCarProduct(CarProduct carProduct)
     {
-        PlayerPrefs.DeleteKey($"{SelectCar} {carProduct.Index}");
+        _selectCarCount--;
+            PlayerPrefs.DeleteKey($"{SelectCar} {carProduct.Index}");
+            PlayerPrefs.SetInt($"{SelectCarCount}", _selectCarCount);
+    }
+
+    public bool IsLastSelectCarProduct()
+    {
+        return _selectCarCount > 1;
     }
 
     public bool IsCarBought(CarProduct carProduct)

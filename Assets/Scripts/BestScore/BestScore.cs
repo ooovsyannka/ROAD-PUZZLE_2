@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BestScore : MonoBehaviour
+public class BestScore : Window
 {
     [SerializeField] private BestScoreRender _bestScoreRender;
     [SerializeField] private BestScoreSaver _bestScoreSaver;
