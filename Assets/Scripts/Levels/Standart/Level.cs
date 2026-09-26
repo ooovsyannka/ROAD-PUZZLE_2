@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,8 @@ public class Level : MonoBehaviour
     [SerializeField] private LevelSaver _levelSaver;
     [SerializeField] private LevelInfoBar _levelInfoBar;
     [SerializeField] private float _carPositionY = 5;
-
+    [SerializeField] private CarProductSaver _carProductSaver;
+    [SerializeField] private ProcentageUnblockingCarRender _procentageUnblockingCarRender;
     private List<StartRoad> _startRoads;
     private List<FinishRoad> _finishRoads;
     private List<RoadNode> _roads;
@@ -83,7 +85,7 @@ public class Level : MonoBehaviour
             _carSpawner.InstalSelectedCar();
             Car car = _carSpawner.GetRandomCar(carSpawnPosition + Vector3.up, startRoad.transform.rotation,
                 _currentLevelData.TimeOfDay);
-                _chains.CreateChain(startRoad);
+            _chains.CreateChain(startRoad);
             startRoad.SetCar(car);
         }
 
@@ -168,15 +170,25 @@ public class Level : MonoBehaviour
         _endGameScreen.Open();
         _endGameScreen.ShowLoosInfo(textFinishGame);
         _inputReader.StopReadInput();
+        _hintButton.gameObject.SetActive(false);
     }
 
-    private void Win()
-    {
-        _winGameScreen.Open();
-        _currentLevelData.CompleteLevel();
-        _wallet.AddCoin(_currentLevelData.WinCoinCount);
-        _earnedCoinText.text = _currentLevelData.WinCoinCount.ToString();
-    }
+     private void Win()
+        {
+                
+            _levelSaver.SaveLevel(_currentLevelData);
+            int winCoinCount = _currentLevelData.WinCoinCount;
+            float procentageUnblockingCar = _currentLevelData.ProcentageUnblockingCar;
+            print($"{procentageUnblockingCar} procentageUnblockingCar");
+            _winGameScreen.Open();
+           // _currentLevelData.CompleteLevel();
+            _wallet.AddCoin(winCoinCount);
+            _earnedCoinText.text = winCoinCount.ToString();
+            _hintButton.gameObject.SetActive(false);
+            _carProductSaver.SaveProcentageUnblockingCar(procentageUnblockingCar);
+            
+            _procentageUnblockingCarRender.UpdateSlider(_carProductSaver.GetProcentageUnblockingCar());
+        }
 
     private void AttemptShowHint()
     {

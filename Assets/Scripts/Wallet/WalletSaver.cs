@@ -13,7 +13,7 @@ public class WalletSaver : MonoBehaviour
         }
     }
 
-    public void SaveCoinInWalet(int coinInWallet)
+    public void TrySaveCoinInWalet(int coinInWallet)
     {
         if (IsCorrectCount(coinInWallet))
         {
@@ -25,7 +25,7 @@ public class WalletSaver : MonoBehaviour
     {
         if (IsCorrectCount(desiredCount))
         {
-            SaveCoinInWalet(LoadCoins() + desiredCount);
+            TrySaveCoinInWalet(LoadCoins() + desiredCount);
         }
     }
 

@@ -7,7 +7,7 @@ public class InfinityScoreCalculator : MonoBehaviour
     [SerializeField] private Chains _chains;
     [SerializeField] private InfinityScoreRender _infinityScoreRender;
     [SerializeField] private BestScore _bestScoreBar;
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Score _scoreText;
     [SerializeField] private ComboWindow _comboWindow;
     [SerializeField] private int _score;
 
@@ -25,13 +25,14 @@ public class InfinityScoreCalculator : MonoBehaviour
     {
         _chains.ChainCompleted += ChainCalculateScore;
         _bestScoreBar.BestScoreRender.ShowBestScore();
+        _bestScore = _bestScoreBar.BestScoreSaver.LoadBestScore();
     }
 
     public void ShowTotalResult(int collectedСoins)
     {
         _earnedCoin = (_score * _finalScoreMultiplier).RoundIntToNearest() + collectedСoins;
-        _bestScoreBar.BestScoreRender.gameObject.SetActive(false);
-        _scoreText.gameObject.SetActive(false);
+        _bestScoreBar.Close();
+        _scoreText.Close();
         _infinityScoreRender.ShowTotalScore(_score);
         _infinityScoreRender.ShowBestScore(_bestScoreBar.BestScoreSaver.LoadBestScore());
         _infinityScoreRender.ShowEarnedCoinCount(_earnedCoin);
