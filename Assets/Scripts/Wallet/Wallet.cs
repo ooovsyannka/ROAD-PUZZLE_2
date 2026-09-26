@@ -59,6 +59,6 @@ public class Wallet : MonoBehaviour
     
     private void SaveCoinsInSaver()
     {
-        _walletSaver.SaveCoinInWalet(_countCoin);
+        _walletSaver.TrySaveCoinInWalet(_countCoin);
     }
 }

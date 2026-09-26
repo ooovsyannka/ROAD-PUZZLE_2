@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class GameOverHandler : MonoBehaviour
 {
-    [SerializeField] private Chains _chains;
     [SerializeField] private RoadDrager _roadDrager;
     [SerializeField] private EndGameScreen _endGameScreen;
     [SerializeField] private GiveUpButton _giveUpButton;
     [SerializeField] private InfinityScoreCalculator _infinityScoreCalculator;
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private Grid _grid;
     [SerializeField] private WalletSaver _walletSaver;
-    [SerializeField] private Timer _timer;
-    [SerializeField] private BonusCollectionHandler  _bonusCollectionHandler;
+
+    private Chains _chains;
+    private Grid _grid;
+    private Timer _timer;
+    private BonusCollectionHandler _bonusCollectionHandler;
 
     private void OnEnable()
     {
@@ -32,6 +33,14 @@ public class GameOverHandler : MonoBehaviour
     private void Start()
     {
         _endGameScreen.SetLevelMode(LevelMode.Infinity);
+    }
+
+    public void Initialize(Chains chains, Grid grid, Timer timer, BonusCollectionHandler bonusCollectionHandler)
+    {
+        _chains = chains;
+        _grid = grid;
+        _timer = timer;
+        _bonusCollectionHandler = bonusCollectionHandler;
     }
 
     private void TryFinidhGame(RoadNode _)

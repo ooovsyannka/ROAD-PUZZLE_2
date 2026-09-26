@@ -4,13 +4,19 @@ using UnityEngine;
 public class BonusCollectionHandler : MonoBehaviour
 {
     [SerializeField] private BonusSpawner _bonusSpawner;
-    [SerializeField] private Grid _grid;
-    [SerializeField] private Timer _timer;
 
+    private Grid _grid;
+    private Timer _timer;
     private int _collectedСoins = 0;
 
     public int CollectedCoins => _collectedСoins;
 
+    public void Initialize( Grid grid, Timer timer )
+    {
+        _grid = grid;
+        _timer = timer;
+    }
+    
     public void AttemptSpawnBonus()
     {
         Vector3 cellPosition = _grid.TryGetRandomEmptyCell().transform.position;

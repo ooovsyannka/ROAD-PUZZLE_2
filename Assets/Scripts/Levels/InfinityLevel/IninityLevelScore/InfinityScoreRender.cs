@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class InfinityScoreRender : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Score _score;
     [SerializeField] private TextMeshProUGUI _totalScoreText;
     [SerializeField] private TextMeshProUGUI _earnedCoinText;
     [SerializeField] private TextMeshProUGUI _bestScore;
     [SerializeField] private float _durationUpdateScore;
     [SerializeField] private float _speedUpdateScore;
 
-    private Coroutine _smothlyUpdateScore;
     private int _currentScore = 0;
 
     public void UpdateScore(int targetCount)
     {
-        StartCoroutine(SmothlyUpdateScore(_currentScore, targetCount, _scoreText));
+        StartCoroutine(SmothlyUpdateScore(_currentScore, targetCount, _score.ScoreText));
         _currentScore = targetCount;
     }
 
     public void UpdateBestScore( int targetCount)
     {
-        StartCoroutine(SmothlyUpdateScore(0, targetCount, _scoreText));
+        StartCoroutine(SmothlyUpdateScore(0, targetCount, _score.ScoreText));
     }
 
     public void ShowTotalScore(int targetCount)
@@ -57,13 +56,5 @@ public class InfinityScoreRender : MonoBehaviour
 
         countToText = targetScore;
         scoreText.text = countToText.ToString();
-    }
-
-    private void LaunchCoroutine(int startCount, int targetCount, TextMeshProUGUI text)
-    {
-        if (_smothlyUpdateScore != null)
-            StopCoroutine(_smothlyUpdateScore);
-
-        _smothlyUpdateScore = StartCoroutine(SmothlyUpdateScore(startCount, targetCount, text));
     }
 }

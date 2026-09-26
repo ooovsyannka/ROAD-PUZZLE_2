@@ -87,4 +87,4 @@ MonoBehaviour:
   _timeForLevelInMinute: 1
   _timeForLevelInSeconds: 30
   _winCoinCount: 250
-  _isComplete: 1
+  _isComplete: 0

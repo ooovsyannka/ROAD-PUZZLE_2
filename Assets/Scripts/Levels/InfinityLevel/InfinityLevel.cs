@@ -12,6 +12,7 @@ public class InfinityLevel : MonoBehaviour
     [SerializeField] private Timer _timer;
     [SerializeField] private Grid _grid;
     [SerializeField] private BonusCollectionHandler _bonusCollectionHandler;
+    [SerializeField] private GameOverHandler  _gameOverHandler;
 
    [SerializeField] private int _startLevelTime = 1;
     private bool _carIsMoving;
@@ -21,6 +22,9 @@ public class InfinityLevel : MonoBehaviour
     private void Awake()
     {
         _carSpawner.InstalSelectedCar();
+        _gameOverHandler.Initialize(_chains, _grid, _timer, _bonusCollectionHandler );
+        _bonusCollectionHandler.Initialize(_grid, _timer);
+        _roadBoundaryRandomizer.Initialize(_universalRoadNodes);
     }
 
     private void OnEnable()

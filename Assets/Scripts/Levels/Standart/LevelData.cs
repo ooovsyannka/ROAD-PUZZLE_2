@@ -21,7 +21,8 @@ public partial class LevelData : ScriptableObject
 
     //private bool _isComplete;
     public bool _isComplete;
-
+   [SerializeField] private float _procentageUnblockingCar = 0.25f;
+    
     public int Index => _index;
     public GridSection GridSection => _gridSection;
     public List<SingleRoadSection> SingleRoadSections => _singleRoadSections;
@@ -36,6 +37,7 @@ public partial class LevelData : ScriptableObject
     public int TimeForLevelInMinute => _timeForLevelInMinute;
     public float TimeForLevelInSeconds => _timeForLevelInSeconds;
     public int WinCoinCount => _winCoinCount;
+    public float ProcentageUnblockingCar => _procentageUnblockingCar;
 
     public void CompleteLevel()
     {

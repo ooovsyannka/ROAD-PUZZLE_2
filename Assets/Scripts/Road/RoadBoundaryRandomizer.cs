@@ -3,10 +3,15 @@ using UnityEngine;
 
 public class RoadBoundaryRandomizer : MonoBehaviour
 {
-    [SerializeField] private List<UniversalRoadBoundary> _universalRoadNodes;
     [SerializeField, Range(0f, 1f)] private float _breakProbability = 0.4f;
 
+    private List<UniversalRoadBoundary> _universalRoadNodes;
     private UniversalRoadBoundary _brokenUniversalRoad;
+
+    public void Initialize(List<UniversalRoadBoundary> universalRoadNodes)
+    {
+        _universalRoadNodes = universalRoadNodes;
+    }
 
     public void TryBreakUniversalFinishRoad()
     {
